@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <ProjectGuid>{DFD65C36-FD41-45FE-B1BC-04A6DD74598E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <OutputPath>bin</OutputPath>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="glMatrix.ts" />
+    <Content Include="index.html" />
+    <TypeScriptCompile Include="jiglibjs2\cof\JConfig.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectBoxBox.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectBoxMesh.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectBoxPlane.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectBoxTerrain.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectCapsuleBox.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectCapsuleCapsule.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectCapsulePlane.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectCapsuleTerrain.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectFunctor.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectInfo.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectSphereBox.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectSphereCapsule.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectSphereMesh.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectSpherePlane.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectSphereSphere.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollDetectSphereTerrain.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollisionInfo.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollisionSystemAbstract.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollisionSystemBrute.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollisionSystemGrid.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollisionSystemGridEntry.ts" />
+    <TypeScriptCompile Include="jiglibjs2\collision\CollPointInfo.ts" />
+    <TypeScriptCompile Include="jiglibjs2\data\CollOutBodyData.ts" />
+    <TypeScriptCompile Include="jiglibjs2\data\CollOutData.ts" />
+    <TypeScriptCompile Include="jiglibjs2\data\ContactData.ts" />
+    <TypeScriptCompile Include="jiglibjs2\data\EdgeData.ts" />
+    <TypeScriptCompile Include="jiglibjs2\data\OctreeCell.ts" />
+    <TypeScriptCompile Include="jiglibjs2\data\PlaneData.ts" />
+    <TypeScriptCompile Include="jiglibjs2\data\SpanData.ts" />
+    <TypeScriptCompile Include="jiglibjs2\data\TerrainData.ts" />
+    <TypeScriptCompile Include="jiglibjs2\data\TriangleVertexIndices.ts" />
+    <Content Include="jiglibjs2\debug\Stats.js" />
+    <TypeScriptCompile Include="jiglibjs2\events\JCollisionEvent.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geometry\JAABox.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geometry\JBox.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geometry\JCapsule.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geometry\JIndexedTriangle.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geometry\JOctree.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geometry\JPlane.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geometry\JRay.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geometry\JSegment.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geometry\JSphere.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geometry\JTerrain.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geometry\JTriangle.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geometry\JTriangleMesh.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geom\Matrix3D.ts" />
+    <TypeScriptCompile Include="jiglibjs2\geom\Vector3D.ts" />
+    <TypeScriptCompile Include="jiglibjs2\jiglib.ts" />
+    <Content Include="jiglibjs2\license.txt" />
+    <TypeScriptCompile Include="jiglibjs2\math\JMath3D.ts" />
+    <TypeScriptCompile Include="jiglibjs2\math\JMatrix3D.ts" />
+    <TypeScriptCompile Include="jiglibjs2\math\JNumber3D.ts" />
+    <TypeScriptCompile Include="jiglibjs2\physics\BodyPair.ts" />
+    <TypeScriptCompile Include="jiglibjs2\physics\CachedImpulse.ts" />
+    <TypeScriptCompile Include="jiglibjs2\physics\constraint\JConstraint.ts" />
+    <TypeScriptCompile Include="jiglibjs2\physics\constraint\JConstraintMaxDistance.ts" />
+    <TypeScriptCompile Include="jiglibjs2\physics\constraint\JConstraintPoint.ts" />
+    <TypeScriptCompile Include="jiglibjs2\physics\constraint\JConstraintWorldPoint.ts" />
+    <TypeScriptCompile Include="jiglibjs2\physics\HingeJoint.ts" />
+    <TypeScriptCompile Include="jiglibjs2\physics\MaterialProperties.ts" />
+    <TypeScriptCompile Include="jiglibjs2\physics\PhysicsController.ts" />
+    <TypeScriptCompile Include="jiglibjs2\physics\PhysicsState.ts" />
+    <TypeScriptCompile Include="jiglibjs2\physics\PhysicsSystem.ts" />
+    <TypeScriptCompile Include="jiglibjs2\physics\RigidBody.ts" />
+    <TypeScriptCompile Include="jiglibjs2\vehicles\JCar.ts" />
+    <TypeScriptCompile Include="jiglibjs2\vehicles\JChassis.ts" />
+    <TypeScriptCompile Include="jiglibjs2\vehicles\JWheel.ts" />
+    <TypeScriptCompile Include="models.ts" />
+    <TypeScriptCompile Include="stunts.ts" />
+    <Content Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="jiglibjs2\README" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>webstunts</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49482</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49482/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+</Project>
