@@ -7,20 +7,14 @@
 module jiglib {
 
     export class JOctree {
-        _cells: OctreeCell[] = []; // OctreeCell
-        _vertices = null; // Vector3D
-        _triangles = null; // JIndexedTriangle
-        _boundingBox = null; // JAABox
-        _cellsToTest = null; // int
-        _testCounter = 0; // int
+        private _cells: OctreeCell[] = []; // OctreeCell
+        private _vertices: Vector3D[] = []; // Vector3D
+        private _triangles: JIndexedTriangle[] = [];//null; // JIndexedTriangle
+        private _boundingBox = new JAABox(); // JAABox
+        private _cellsToTest: number[] = [];//null; // int
+        private _testCounter = 0; // int
 
-        constructor() {
-            this._vertices = [];
-            this._triangles = [];
-            this._cellsToTest = [];
-            this._boundingBox = new JAABox();
-
-        }
+        constructor() { }
 
         get_trianglesData() {
 

@@ -1,24 +1,17 @@
-﻿
-/// <reference path="../cof/JConfig.ts"/>
-
+﻿/// <reference path="../cof/JConfig.ts"/>
 /// <reference path="../data/PlaneData.ts"/>
-
 /// <reference path="../geom/Vector3D.ts"/>
-
 /// <reference path="../math/JMath3D.ts"/>
 /// <reference path="../math/JNumber3D.ts"/>
-
-
-
 
 module jiglib {
 
 
     export class JIndexedTriangle {
         counter = null; // int
-        _vertexIndices = null; // uint
-        _plane = null; // PlaneData
-        _boundingBox = null; // JAABox
+        private _vertexIndices = null; // uint
+        private _plane = null; // PlaneData
+        private _boundingBox = null; // JAABox
 
         constructor() {
 
