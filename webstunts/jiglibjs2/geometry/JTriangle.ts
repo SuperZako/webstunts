@@ -6,10 +6,10 @@
 module jiglib {
 
     export class JTriangle {
-        origin = null; // Vector3D
-        edge0 = null; // Vector3D
-        edge1 = null; // Vector3D
-        constructor(pt0, pt1, pt2) {
+        origin: Vector3D = null; // Vector3D
+        edge0: Vector3D = null; // Vector3D
+        edge1: Vector3D = null; // Vector3D
+        constructor(pt0: Vector3D, pt1: Vector3D, pt2: Vector3D) {
 
 
             this.origin = pt0.clone();
@@ -26,27 +26,21 @@ module jiglib {
 
         get_normal() {
 
-            var N = this.edge0.crossProduct(this.edge1);
+            let N = this.edge0.crossProduct(this.edge1);
             N.normalize();
-
             return N;
-
         }
 
         get_plane() {
-
-            var pl = new PlaneData();
+            let pl = new PlaneData();
             pl.setWithNormal(this.origin, this.get_normal());
 
             return pl;
-
         }
 
         getPoint(t0, t1) {
-
-            var d0, d1;
-            d0 = this.edge0.clone();
-            d1 = this.edge1.clone();
+            let d0 = this.edge0.clone();
+            let d1 = this.edge1.clone();
 
             d0.scaleBy(t0);
             d1.scaleBy(t1);
@@ -56,12 +50,9 @@ module jiglib {
         }
 
         getCentre() {
-
-            var result = this.edge0.add(this.edge1);
+            let result = this.edge0.add(this.edge1);
             result.scaleBy(0.333333);
-
             return this.origin.add(result);
-
         }
 
         getVertex(_id) {
@@ -78,13 +69,11 @@ module jiglib {
         }
 
         getSpan(axis) {
+            let d0 = this.getVertex(0).dotProduct(axis);
+            let d1 = this.getVertex(1).dotProduct(axis);
+            let d2 = this.getVertex(2).dotProduct(axis);
 
-            var d0, d1, d2;
-            d0 = this.getVertex(0).dotProduct(axis);
-            d1 = this.getVertex(1).dotProduct(axis);
-            d2 = this.getVertex(2).dotProduct(axis);
-
-            var result = new SpanData();
+            let result = new SpanData();
             result.min = Math.min(d0, d1, d2);
             result.max = Math.max(d0, d1, d2);
 
@@ -92,14 +81,14 @@ module jiglib {
 
         }
 
-        segmentTriangleIntersection(out, seg) {
+        segmentTriangleIntersection(out: CollOutData, seg) {
 
 
-            var u, v, t, a, f;
-            var p, s, q;
+            var u, v, t, f;
+            var s, q;
 
-            p = seg.delta.crossProduct(this.edge1);
-            a = this.edge0.dotProduct(p);
+            let p = seg.delta.crossProduct(this.edge1);
+            let a = this.edge0.dotProduct(p);
 
             if (a > -JMath3D.NUM_TINY && a < JMath3D.NUM_TINY) {
                 return false;

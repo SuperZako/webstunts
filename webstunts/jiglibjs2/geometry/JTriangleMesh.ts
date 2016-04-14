@@ -5,8 +5,8 @@ module jiglib {
 
     export class JTriangleMesh extends RigidBody {
         _octree: JOctree = null; // JOctree
-        _maxTrianglesPerCell:number = null; // int
-        _minCellSize: number= null; // Number
+        _maxTrianglesPerCell: number = null; // int
+        _minCellSize: number = null; // Number
         _skinVertices: Vector3D[] = null; // Vector3D
 
         constructor(skin, initPosition, initOrientation, maxTrianglesPerCell, minCellSize) {
@@ -39,7 +39,8 @@ module jiglib {
             transform = JMatrix3D.getAppendMatrix3D(this.get_currentState().orientation, transform);
 
             var i = 0;
-            for (var vertices_i = 0, vertices_l = vertices.length, _point; (vertices_i < vertices_l) && (_point = vertices[vertices_i]); vertices_i++) {
+            //for (var vertices_i = 0, vertices_l = vertices.length, _point; (vertices_i < vertices_l) && (_point = vertices[vertices_i]); vertices_i++) {
+            for (let _point of vertices) {
                 vts[i++] = transform.transformVector(_point);
             }
 

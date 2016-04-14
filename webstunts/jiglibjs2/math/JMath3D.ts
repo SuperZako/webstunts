@@ -6,7 +6,7 @@ module jiglib {
         static NUM_TINY = 0.000001; // Number
         static NUM_HUGE = 1000000; // Number
 
-        static getLimiteNumber(num, min, max) {
+        static getLimiteNumber(num: number, min: number, max: number) {
 
             var n = num;
             if (n < min) {

@@ -21,7 +21,7 @@
 /// <reference path="CollDetectInfo.ts"/>
 
 
-module jiglib {
+namespace jiglib {
 
     export class CollDetectBoxMesh extends CollDetectFunctor {
 
@@ -67,17 +67,16 @@ module jiglib {
 
         }
 
-        getBoxTriangleIntersectionPoints(pts, box, triangle, combinationDistanceSq) {
+        getBoxTriangleIntersectionPoints(pts, box, triangle: JTriangle, combinationDistanceSq) {
 
             var edges = box.get_edges();
             var boxPts = box.getCornerPoints(box.get_currentState());
 
-            var data;
             var edge;
             var seg;
             for (var i = 0; i < 12; i++) {
                 edge = edges[i];
-                data = new CollOutData();
+                let data = new CollOutData();
                 seg = new JSegment(boxPts[edge.ind0], boxPts[edge.ind1].subtract(boxPts[edge.ind0]));
                 if (triangle.segmentTriangleIntersection(data, seg)) {
                     this.addPoint(pts, seg.getPoint(data.frac), combinationDistanceSq);
@@ -89,7 +88,7 @@ module jiglib {
             for (i = 0; i < 3; i++) {
                 pt0 = triangle.getVertex(i);
                 pt1 = triangle.getVertex((i + 1) % 3);
-                data = new CollOutData();
+                let data = new CollOutData();
                 if (box.segmentIntersect(data, new JSegment(pt0, pt1.subtract(pt0)), box.get_currentState())) {
                     this.addPoint(pts, data.position, combinationDistanceSq);
                     if (pts.length > 8) return pts.length;

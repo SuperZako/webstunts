@@ -6,7 +6,7 @@
 module jiglib {
 
     export class Matrix3D {
-        constructor(v= null) {
+        constructor(v = null) {
             if (v) {
                 this._rawData = mat4.create(v);
             }
@@ -38,7 +38,7 @@ module jiglib {
 
         // Appends an incremental rotation to a Matrix3D object.
         // return void
-        appendRotation(angle, axis, pivot= null) {
+        appendRotation(angle, axis, pivot = null) {
             // angle = angle/(3.14159*2);	
             angle = angle * Math.PI / 180;
             if (pivot) {
@@ -121,7 +121,7 @@ module jiglib {
 
         // Uses the transformation matrix to transform a Vector3D object from one space coordinate to another.
         // return Vector3D with the transformed coordinates.
-        transformVector(vector) {
+        transformVector(vector: Vector3D) {
             var vec = mat4.multiplyVec3(mat4.transpose(this._rawData, mat4.create()), [vector.x, vector.y, vector.z]);
             return new Vector3D(vec[0], vec[1], vec[2]);
         }

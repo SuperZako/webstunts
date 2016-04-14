@@ -2,14 +2,10 @@
 
 /// <reference path="CollOutData.ts"/>
 
-
-module jiglib {
-
+namespace jiglib {
     export class CollOutBodyData extends CollOutData {
-        rigidBody = null; // RigidBody
-        constructor(frac = null, position = null, normal = null, rigidBody = null) {
+        constructor(frac = 0, position = new Vector3D(), normal = new Vector3D(), public rigidBody: RigidBody = null) {
             super(frac, position, normal);
-            this.rigidBody = rigidBody;
         }
     }
 }

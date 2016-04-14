@@ -16,7 +16,7 @@
 /// <reference path="CollisionInfo.ts"/>
 /// <reference path="CollDetectInfo.ts"/>
 
-module jiglib {
+namespace jiglib {
 
     export class CollDetectBoxPlane extends CollDetectFunctor {
 

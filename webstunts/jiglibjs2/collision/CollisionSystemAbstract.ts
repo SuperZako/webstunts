@@ -24,9 +24,9 @@ module jiglib {
 
     export class CollisionSystemAbstract {
         detectionFunctors = null; // Dictionary
-        collBody: RigidBody[]= []; // RigidBody
+        collBody: RigidBody[] = []; // RigidBody
         _numCollisionsChecks = 0; // uint
-        startPoint: Vector3D= null; // Vector3D
+        startPoint: Vector3D = null; // Vector3D
 
         constructor() {
             this.detectionFunctors = [];
@@ -78,23 +78,21 @@ module jiglib {
 
         }
 
-        detectCollisions(body, collArr) {
+        detectCollisions(body: RigidBody, collArr) {
 
             if (!body.isActive)
                 return;
 
-            var info;
-            var fu;
-
-            for (var collBody_i = 0, collBody_l = this.collBody.length, _collBody; (collBody_i < collBody_l) && (_collBody = this.collBody[collBody_i]); collBody_i++) {
+            //for (var collBody_i = 0, collBody_l = this.collBody.length, _collBody; (collBody_i < collBody_l) && (_collBody = this.collBody[collBody_i]); collBody_i++) {
+            for (let _collBody of this.collBody) {
                 if (body == _collBody) {
                     continue;
                 }
                 if (this.checkCollidables(body, _collBody) && this.detectionFunctors[body.get_type() + "_" + _collBody.get_type()] != undefined) {
-                    info = new CollDetectInfo();
+                    let info = new CollDetectInfo();
                     info.body0 = body;
                     info.body1 = _collBody;
-                    fu = this.detectionFunctors[info.body0.get_type() + "_" + info.body1.get_type()];
+                    let fu = this.detectionFunctors[info.body0.get_type() + "_" + info.body1.get_type()];
                     fu.collDetect(info, collArr);
                 }
             }

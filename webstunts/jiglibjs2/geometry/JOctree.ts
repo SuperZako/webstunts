@@ -54,20 +54,20 @@ module jiglib {
 
         }
 
-        addTriangles(vertices, numVertices, triangleVertexIndices, numTriangles) {
+        addTriangles(vertices, numVertices, triangleVertexIndices: TriangleVertexIndices[], numTriangles) {
 
             this.clear();
 
             this._vertices = vertices.concat();
 
             var NLen, tiny = JMath3D.NUM_TINY;
-            var i0, i1, i2;
             var dr1, dr2, N;
             var indexedTriangle;
-            for (var triangleVertexIndices_i = 0, triangleVertexIndices_l = triangleVertexIndices.length, tri; (triangleVertexIndices_i < triangleVertexIndices_l) && (tri = triangleVertexIndices[triangleVertexIndices_i]); triangleVertexIndices_i++) {
-                i0 = tri.i0;
-                i1 = tri.i1;
-                i2 = tri.i2;
+            //for (var triangleVertexIndices_i = 0, triangleVertexIndices_l = triangleVertexIndices.length, tri; (triangleVertexIndices_i < triangleVertexIndices_l) && (tri = triangleVertexIndices[triangleVertexIndices_i]); triangleVertexIndices_i++) {
+            for (let tri of triangleVertexIndices) {
+                let i0 = tri.i0;
+                let i1 = tri.i1;
+                let i2 = tri.i2;
 
                 dr1 = vertices[i1].subtract(vertices[i0]);
                 dr2 = vertices[i2].subtract(vertices[i0]);

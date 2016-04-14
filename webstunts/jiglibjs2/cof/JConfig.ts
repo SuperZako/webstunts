@@ -1,5 +1,5 @@
 ﻿
-module jiglib {
+namespace jiglib {
     export class JConfig {
         static solverType = "ACCUMULATED";
         static rotationType = "DEGREES";

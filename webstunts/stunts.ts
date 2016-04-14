@@ -26,7 +26,10 @@ var carScaleFactor = scaleFactor / 20;
 var carScaleY = 0.75;
 var trackPosition = [edgeLength, 0, edgeLength]; // the mesh collider doesn't seem to like negative coordinates
 
-var gl;
+var gl: WebGLRenderingContext;
+var viewportWidth: number;
+var viewportHeight: number;
+var antiMoire: string;
 var jl;
 
 var track;
@@ -40,7 +43,7 @@ class Mesh {
     vertexMaterialInfo;
 }
 
-function notify(msg, tag= null) {
+function notify(msg, tag = null) {
     if (!tag) {
         tag = 'p';
     }
@@ -205,20 +208,20 @@ function initPhysics() {
 function initGL(canvas) {
     try {
         gl = canvas.getContext("experimental-webgl");
-        gl.viewportWidth = canvas.width;
-        gl.viewportHeight = canvas.height;
+        /*gl.*/viewportWidth = canvas.width;
+        /*gl.*/viewportHeight = canvas.height;
     } catch (e) { }
 
     if (!gl) {
         notify("Could not initialise WebGL!");
     }
 
-    gl.antiMoire = "#define ANTI_MOIRE_ENABLED\n";
+    /*gl.*/antiMoire = "#define ANTI_MOIRE_ENABLED\n";
     gl.getExtension("OES_standard_derivatives");
     var supported = gl.getSupportedExtensions();
     if (supported.indexOf("OES_standard_derivatives") < 0) {
         notify("OES_standard_derivatives not supported! Disabling Moir辿 reduction.");
-        gl.antiMoire = "";
+        /*gl.*/antiMoire = "";
     }
 }
 
@@ -351,7 +354,7 @@ function initMesh(model) {
         vec3.cross(w, v, normal);
 
         var material = materials[faceMaterials[index]];
-	var rgb = material.rgb;
+        var rgb = material.rgb;
         rgb = [(rgb >> 16) / 255, ((rgb >> 8) & 0xff) / 255, (rgb & 0xff) / 255];
 
         var bias = isGrass(faceMaterials[index]) ? 2 : faceBiases[index];
@@ -459,7 +462,7 @@ function renderMesh(mesh) {
 
 // Render the whole scene and update the world
 function updateScene() {
-    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+    gl.viewport(0, 0, /*gl.*/viewportWidth, /*gl.*/viewportHeight);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     // Update camera position
@@ -477,7 +480,7 @@ function updateScene() {
     camera.position[1] = Math.max(0.2, camera.position[1]);
 
     // Set camera matrix and light position
-    mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 50000, cameraProjection);
+    mat4.perspective(45, /*gl.*/viewportWidth / /*gl.*/viewportHeight, 0.1, 50000, cameraProjection);
     mat4.multiply(cameraProjection, mat4.lookAt(camera.position, tempPos, [0, 1, 0]));
 
     mat4.multiplyVec3(cameraProjection, lightPosition, projectedLight);
@@ -705,7 +708,7 @@ function loadTrack(e) {
     reader.onloadend = function () {
         if (this.result.length == 1802) {
             var codes = [];
-	    for (var i in this.result) {
+            for (var i in this.result) {
                 codes.push(this.result.charCodeAt(i));
             }
             buildTrack(codes);

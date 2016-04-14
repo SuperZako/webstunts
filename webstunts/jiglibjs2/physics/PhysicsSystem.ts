@@ -17,7 +17,7 @@ module jiglib {
 
         _maxVelMag = 0.5; // Number
         _minVelForProcessing = 0.001; // Number
-        _bodies = null; // RigidBody
+        _bodies: RigidBody[] = [];//null; // RigidBody
         _activeBodies = null; // RigidBody
         _collisions = null; // CollisionInfo
         _constraints = null; // JConstraint
