@@ -12,7 +12,8 @@ module jiglib {
 
 
             var id1 = -1;
-            if (_body1 != null) id1 = _body1.get_id();
+            if (_body1 != null)
+                id1 = _body1.get_id();
 
             if (_body0.get_id() > id1) {
                 this.body0 = _body0;

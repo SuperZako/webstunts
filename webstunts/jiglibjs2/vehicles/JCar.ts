@@ -21,6 +21,16 @@ module jiglib {
 
 
     export class JCar {
+        name: string;
+        maxSteerAngle: number;
+        steerRate: number;
+        driveTorque: number;
+        centre: number[];
+
+        chassisMesh;
+        wheelMesh;
+
+
         _maxSteerAngle = null; // Number
         _steerRate = null; // Number
         _driveTorque = null; // Number
@@ -42,7 +52,7 @@ module jiglib {
 
         }
 
-        setCar(maxSteerAngle= null, steerRate= null, driveTorque= null) {
+        setCar(maxSteerAngle = null, steerRate = null, driveTorque = null) {
             if (maxSteerAngle == null) maxSteerAngle = 45;
             if (steerRate == null) steerRate = 1;
             if (driveTorque == null) driveTorque = 500;
@@ -135,17 +145,15 @@ module jiglib {
 
         }
 
-        postPhysics(dt) {
+        postPhysics(dt: number) {
 
-            var wheel;
-            for (var wheels_i = 0, wheels_l = this.get_wheels().length, wheel; (wheels_i < wheels_l) && (wheel = this.get_wheels()[wheels_i]); wheels_i++) {
+            for (let wheel of this.get_wheels()) {
                 wheel.update(dt);
             }
 
-            var deltaAccelerate, deltaSteering, dAccelerate, dSteering, alpha, angleSgn;
-            deltaAccelerate = dt;
-            deltaSteering = dt * this._steerRate;
-            dAccelerate = this._destAccelerate - this._accelerate;
+            let deltaAccelerate = dt;
+            let deltaSteering = dt * this._steerRate;
+            let dAccelerate = this._destAccelerate - this._accelerate;
             if (dAccelerate < -deltaAccelerate) {
                 dAccelerate = -deltaAccelerate;
             }
@@ -154,7 +162,7 @@ module jiglib {
             }
             this._accelerate += dAccelerate;
 
-            dSteering = this._destSteering - this._steering;
+            let dSteering = this._destSteering - this._steering;
             if (dSteering < -deltaSteering) {
                 dSteering = -deltaSteering;
             }
@@ -163,14 +171,14 @@ module jiglib {
             }
             this._steering += dSteering;
 
-            for (var wheels_i = 0, wheels_l = this.get_wheels().length, wheel; (wheels_i < wheels_l) && (wheel = this.get_wheels()[wheels_i]); wheels_i++) {
+            for (let wheel of this.get_wheels()) {
                 wheel.addTorque(this._driveTorque * this._accelerate);
                 wheel.setLock(this._HBrake > 0.5);
             }
 
-            alpha = Math.abs(this._maxSteerAngle * this._steering);
-            angleSgn = (this._steering > 0) ? 1 : -1;
-            for (var _steerWheels_i = 0, _steerWheels_l = this._steerWheels.length, _steerWheel; (_steerWheels_i < _steerWheels_l) && (_steerWheel = this._steerWheels[_steerWheels_i]); _steerWheels_i++) {
+            let alpha = Math.abs(this._maxSteerAngle * this._steering);
+            let angleSgn = (this._steering > 0) ? 1 : -1;
+            for (let _steerWheel of this._steerWheels) {
                 _steerWheel.setSteerAngle(angleSgn * alpha);
             }
 
@@ -178,7 +186,7 @@ module jiglib {
 
         getNumWheelsOnFloor() {
             var count = 0;
-            for (var wheels_i = 0, wheels_l = this.get_wheels().length, wheel; (wheels_i < wheels_l) && (wheel = this.get_wheels()[wheels_i]); wheels_i++) {
+            for (let wheel of this.get_wheels()) {
                 if (wheel.getOnFloor()) {
                     count++;
                 }

@@ -4,8 +4,8 @@ module jiglib {
 
     export class Vector3D {
 
-        constructor(public x= null, public y= null, public z= null, public w= null) { }
-
+        //constructor(public x= null, public y= null, public z= null, public w= null) { }
+        constructor(public x = 0, public y = 0, public z = 0, public w = 0) { }
         //add(a:Vector3D):Vector3D
         //Adds the value of the x, y, and z elements of the current Vector3D object to the values of the x, y, and z elements of another Vector3D object.
         add(a) {

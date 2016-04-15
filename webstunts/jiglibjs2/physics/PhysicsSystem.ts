@@ -18,8 +18,8 @@ module jiglib {
         _maxVelMag = 0.5; // Number
         _minVelForProcessing = 0.001; // Number
         _bodies: RigidBody[] = [];//null; // RigidBody
-        _activeBodies = null; // RigidBody
-        _collisions = null; // CollisionInfo
+        _activeBodies: RigidBody[] = null; // RigidBody
+        _collisions: CollisionInfo[] = null; // CollisionInfo
         _constraints = null; // JConstraint
         _controllers = null; // PhysicsController
         _gravityAxis = null; // int
@@ -30,7 +30,7 @@ module jiglib {
         processCollisionFn = null; // Function
         processContactFn = null; // Function
         _cachedContacts = null; // ContactData
-        _collisionSystem = null; // CollisionSystemAbstract
+        _collisionSystem: CollisionSystemAbstract = null; // CollisionSystemAbstract
 
         constructor() {
             this.setSolverType(JConfig.solverType);
@@ -364,10 +364,10 @@ module jiglib {
 
             var N = collision.dirToBody, tempV;
             var timescale = JConfig.numPenetrationRelaxationTimesteps * dt, approachScale = 0, numTiny = JMath3D.NUM_TINY, allowedPenetration = JConfig.allowedPenetration;
-            var ptInfo;
+
             var collision_pointInfo = collision.pointInfo;
 
-            for (var collision_pointInfo_i = 0, collision_pointInfo_l = collision_pointInfo.length, ptInfo; (collision_pointInfo_i < collision_pointInfo_l) && (ptInfo = collision_pointInfo[collision_pointInfo_i]); collision_pointInfo_i++) {
+            for (let ptInfo of collision_pointInfo) {
                 if (!body0.get_movable()) {
                     ptInfo.denominator = 0;
                 }
@@ -410,7 +410,7 @@ module jiglib {
                 var bestDistSq = 0.04;
                 var bp = new BodyPair(body0, body1, new Vector3D(), new Vector3D());
 
-                for (var _cachedContacts_i = 0, _cachedContacts_l = this._cachedContacts.length, cachedContact; (_cachedContacts_i < _cachedContacts_l) && (cachedContact = this._cachedContacts[_cachedContacts_i]); _cachedContacts_i++) {
+                for (let cachedContact of this._cachedContacts) {
                     if (!(bp.body0 == cachedContact.pair.body0 && bp.body1 == cachedContact.pair.body1))
                         continue;
 
@@ -449,10 +449,8 @@ module jiglib {
 
             collision.satisfied = true;
 
-            var body0, body1;
-
-            body0 = collision.objInfo.body0;
-            body1 = collision.objInfo.body1;
+            let body0 = collision.objInfo.body0;
+            let body1 = collision.objInfo.body1;
 
             var gotOne = false;
             var deltaVel = 0, normalVel = 0, finalNormalVel = 0, normalImpulse = 0, tangent_speed, denominator, impulseToReverse, impulseFromNormalImpulse, frictionImpulse, tiny = JMath3D.NUM_TINY;
@@ -461,7 +459,7 @@ module jiglib {
 
             var collision_pointInfo = collision.pointInfo;
 
-            for (var collision_pointInfo_i = 0, collision_pointInfo_l = collision_pointInfo.length, ptInfo; (collision_pointInfo_i < collision_pointInfo_l) && (ptInfo = collision_pointInfo[collision_pointInfo_i]); collision_pointInfo_i++) {
+            for (let ptInfo of collision_pointInfo) {
                 Vr0 = body0.getVelocity(ptInfo.r0);
                 if (body1) {
                     Vr1 = body1.getVelocity(ptInfo.r1);
@@ -802,7 +800,7 @@ module jiglib {
 
             var fricImpulse, body0, body1, contact, collInfo_objInfo, collInfo_pointInfo;
             var i = 0, id1;
-            for (var _collisions_i = 0, _collisions_l = this._collisions.length, collInfo; (_collisions_i < _collisions_l) && (collInfo = this._collisions[_collisions_i]); _collisions_i++) {
+            for (let collInfo of this._collisions) {
                 collInfo_objInfo = collInfo.objInfo;
                 body0 = collInfo_objInfo.body0;
                 body1 = collInfo_objInfo.body1;
@@ -861,10 +859,10 @@ module jiglib {
                     this.preProcessCollisionFn(collInfo, dt);
             }
 
-            for (step = 0; step < iter; step++) {
+            for (let step = 0; step < iter; step++) {
                 gotOne = true;
 
-                for (var _collisions_i = 0, _collisions_l = this._collisions.length, collInfo; (_collisions_i < _collisions_l) && (collInfo = this._collisions[_collisions_i]); _collisions_i++) {
+                for (let collInfo of this._collisions) {
                     if (!collInfo.satisfied) {
                         if (forceInelastic)
                             flag = this.processContactFn(collInfo, dt);
@@ -903,9 +901,9 @@ module jiglib {
 
             if (this._activeBodies.indexOf(body) < 0) {
                 body.setActive();
-                this._activeBodies.fixed = false;
+                //this._activeBodies.fixed = false;
                 this._activeBodies.push(body);
-                this._activeBodies.fixed = true;
+                //this._activeBodies.fixed = true;
             }
 
         }
@@ -937,15 +935,13 @@ module jiglib {
 
         activateAllFrozenObjectsLeftHanging() {
 
-            var other_body;
-            var body_collisions;
-
-            for (var _activeBodies_i = 0, _activeBodies_l = this._activeBodies.length, body; (_activeBodies_i < _activeBodies_l) && (body = this._activeBodies[_activeBodies_i]); _activeBodies_i++) {
+            for (let body of this._activeBodies) {
                 body.doMovementActivations(this);
-                body_collisions = body.collisions;
+                let body_collisions = body.collisions;
                 if (body_collisions.length > 0) {
-                    for (var body_collisions_i = 0, body_collisions_l = body_collisions.length, collisionInfo; (body_collisions_i < body_collisions_l) && (collisionInfo = body_collisions[body_collisions_i]); body_collisions_i++) {
-                        other_body = collisionInfo.objInfo.body0;
+
+                    for (let collisionInfo of body_collisions) {
+                        let other_body = collisionInfo.objInfo.body0;
                         if (other_body == body)
                             other_body = collisionInfo.objInfo.body1;
 
@@ -958,29 +954,24 @@ module jiglib {
         }
 
         updateAllController(dt) {
-
-            for (var _controllers_i = 0, _controllers_l = this._controllers.length, controller; (_controllers_i < _controllers_l) && (controller = this._controllers[_controllers_i]); _controllers_i++)
+            for (let controller of this._controllers)
                 controller.updateController(dt);
 
         }
 
         updateAllVelocities(dt) {
-
-            for (var _activeBodies_i = 0, _activeBodies_l = this._activeBodies.length, activeBody; (_activeBodies_i < _activeBodies_l) && (activeBody = this._activeBodies[_activeBodies_i]); _activeBodies_i++)
+            for (let activeBody of this._activeBodies)
                 activeBody.updateVelocity(dt);
-
         }
 
         notifyAllPostPhysics(dt) {
-
-            for (var _activeBodies_i = 0, _activeBodies_l = this._activeBodies.length, activeBody; (_activeBodies_i < _activeBodies_l) && (activeBody = this._activeBodies[_activeBodies_i]); _activeBodies_i++)
+            for (let activeBody of this._activeBodies)
                 activeBody.postPhysics(dt);
-
         }
 
         detectAllCollisions(dt) {
 
-            for (var _bodies_i = 0, _bodies_l = this._bodies.length, body; (_bodies_i < _bodies_l) && (body = this._bodies[_bodies_i]); _bodies_i++) {
+            for (let body of this._bodies) {
                 if (body.isActive) {
                     body.storeState();
                     body.updateVelocity(dt);
@@ -992,7 +983,7 @@ module jiglib {
             this._collisions.length = 0;
             this._collisionSystem.detectAllCollisions(this._activeBodies, this._collisions);
 
-            for (var _activeBodies_i = 0, _activeBodies_l = this._activeBodies.length, activeBody; (_activeBodies_i < _activeBodies_l) && (activeBody = this._activeBodies[_activeBodies_i]); _activeBodies_i++)
+            for (let activeBody of this._activeBodies)
                 activeBody.restoreState();
 
         }
@@ -1000,23 +991,24 @@ module jiglib {
         findAllActiveBodiesAndCopyStates() {
 
             this._activeBodies = [];
-            var i = 0;
+            //var i = 0;
 
-            for (var _bodies_i = 0, _bodies_l = this._bodies.length, body; (_bodies_i < _bodies_l) && (body = this._bodies[_bodies_i]); _bodies_i++) {
+            for (let body of this._bodies) {
                 // findAllActiveBodies
                 if (body.isActive) {
-                    this._activeBodies[i++] = body;
+                    //this._activeBodies[i++] = body;
+                    this._activeBodies.push(body);
                     body.copyCurrentStateToOld();
                 }
 
             }
 
             // correct length
-            this._activeBodies.fixed = false;
-            this._activeBodies.length = i;
+            //this._activeBodies.fixed = false;
+            //this._activeBodies.length = i;
 
             // fixed is faster
-            this._activeBodies.fixed = true;
+            //this._activeBodies.fixed = true;
 
         }
 
@@ -1031,7 +1023,8 @@ module jiglib {
             this.updateAllVelocities(dt);
             this.handleAllConstraints(dt, JConfig.numContactIterations, true);
 
-            if (JConfig.doShockStep) this.doShockStep(dt);
+            if (JConfig.doShockStep)
+                this.doShockStep(dt);
 
             this.tryToActivateAllFrozenObjects();
             this.tryToFreezeAllObjects(dt);
@@ -1046,7 +1039,7 @@ module jiglib {
 
         }
 
-        static _currentPhysicsSystem = null; // PhysicsSystem
+        static _currentPhysicsSystem: PhysicsSystem = null; // PhysicsSystem
 
         static getInstance() {
 

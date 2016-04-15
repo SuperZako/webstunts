@@ -9,7 +9,7 @@ module jiglib {
         _minCellSize: number = null; // Number
         _skinVertices: Vector3D[] = null; // Vector3D
 
-        constructor(skin, initPosition, initOrientation, maxTrianglesPerCell, minCellSize) {
+        constructor(skin: ISkin3D, initPosition, initOrientation, maxTrianglesPerCell, minCellSize) {
             super(skin);
 
             this.get_currentState().position = initPosition.clone();

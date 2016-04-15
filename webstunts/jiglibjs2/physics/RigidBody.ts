@@ -18,14 +18,25 @@
 
 
 module jiglib {
+    export interface ISkin3D {
+
+		/**
+		 * @return A matrix with the current transformation values of the mesh.
+		 */
+        transform: JMatrix3D;
+
+
+        vertices: Vector3D[];
+        indices: TriangleVertexIndices[];
+    }
 
     export class RigidBody {
 
         _id = null; // int
-        _skin = null; // ISkin3D
+        _skin: ISkin3D = null; // ISkin3D
         _type = null; // String
-        _boundingSphere:number = null; // Number
-        _boundingBox:JAABox = new JAABox(); // JAABox
+        _boundingSphere: number = null; // Number
+        _boundingBox = new JAABox(); // JAABox
         _currState = null; // PhysicsState
         _oldState = null; // PhysicsState
         _storeState = null; // PhysicsState
@@ -34,18 +45,18 @@ module jiglib {
         _currRotVelocityAux = null; // Vector3D
         _mass = null; // Number
         _invMass = null; // Number
-        _bodyInertia:Matrix3D = null; // Matrix3D
-        _bodyInvInertia:Matrix3D = null; // Matrix3D
-        _worldInertia:Matrix3D = null; // Matrix3D
-        _worldInvInertia:Matrix3D = null; // Matrix3D
+        _bodyInertia: Matrix3D = null; // Matrix3D
+        _bodyInvInertia: Matrix3D = null; // Matrix3D
+        _worldInertia: Matrix3D = null; // Matrix3D
+        _worldInvInertia: Matrix3D = null; // Matrix3D
         _force = null; // Vector3D
         _torque = null; // Vector3D
         _linVelDamping = null; // Vector3D
         _rotVelDamping = null; // Vector3D
         _maxLinVelocities = null; // Vector3D
         _maxRotVelocities = null; // Vector3D
-        _movable:boolean = null; // Boolean
-        _origMovable:boolean = null; // Boolean
+        _movable: boolean = null; // Boolean
+        _origMovable: boolean = null; // Boolean
         _inactiveTime = null; // Number
         _bodiesToBeActivatedOnMovement = null; // RigidBody
         _storedPositionForActivation = null; // Vector3D

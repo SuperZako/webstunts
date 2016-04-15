@@ -5,7 +5,7 @@ module jiglib {
 
     export class JChassis extends JBox {
         _car = null; // JCar
-        constructor(car, skin= null, width= null, depth= null, height= null) {
+        constructor(car: JCar, skin = null, width = null, depth = null, height = null) {
             super(skin, width, depth, height);
             this._car = car;
         }

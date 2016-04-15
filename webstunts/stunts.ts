@@ -30,32 +30,37 @@ var gl: WebGLRenderingContext;
 var viewportWidth: number;
 var viewportHeight: number;
 var antiMoire: string;
-var jl;
+var jl: jiglib.PhysicsSystem;
 
 var track;
-var car;
+var car: jiglib.JCar;
 var camera;
 
 class Mesh {
-    vertexPosition;
+    vertexPosition: {
+        buffer: WebGLBuffer,
+        itemSize: number,
+        numItems: number,
+    };
+
     vertexNormal;
     vertexColour;
     vertexMaterialInfo;
 }
 
-function notify(msg, tag = null) {
-    if (!tag) {
-        tag = 'p';
-    }
+function notify(msg: string, tag: string = 'p') {
+    //if (!tag) {
+    //    tag = 'p';
+    //}
     document.getElementById('notifications').innerHTML += '<' + tag + '>' + msg + '</' + tag + '>';
 }
 
-function vec(xyz) {
+function vec(xyz: number[] | Float32Array) {
     return new jiglib.Vector3D(xyz[0], xyz[1], xyz[2], 0);
 }
 
 function isElement(array, value) {
-    return array.some(function (elem) { return elem == value });
+    return array.some((elem) => elem == value);
 }
 
 function isGrass(material) {
@@ -64,8 +69,8 @@ function isGrass(material) {
 
 // Convert a Stunts model into a JTriangleMesh
 function physicalModel(model) {
-    var vertices = [];
-    var indices = [];
+    var vertices: jiglib.Vector3D[] = [];
+    var indices: jiglib.TriangleVertexIndices[] = [];
 
     for (var i = 0; i < model.vertices.length; i++) {
         vertices.push(vec(model.vertices[i]));
@@ -76,19 +81,16 @@ function physicalModel(model) {
         // Exclude road markings and corner kerbs from the physics
         if (!isElement([18, 20, 21, 27, 30, 127, 128], model.faceMaterials[i])) {
             for (var j = 1; j < x.length - 1; j++) {
-                var t = {
-                    i0: x[0],
-                    i1: x[j + 1],
-                    i2: x[j]
-                };
-                //t.i1 = x[j + 1];
-                //t.i2 = x[j];
+                var t = { i0: x[0], i1: x[j + 1], i2: x[j] };
                 indices.push(t);
             }
         }
     }
 
-    var skin = { vertices: vertices, indices: indices };
+    var skin: jiglib.ISkin3D;
+    skin.vertices = vertices;
+    skin.indices = indices;
+
     var pos = vec(trackPosition);
     var rot = new jiglib.Matrix3D();
     return new jiglib.JTriangleMesh(skin, pos, rot, 200, 5 * worldScale);
@@ -226,7 +228,7 @@ function initGL(canvas) {
 }
 
 // Compile the shader in the given element
-function getShader(gl, id) {
+function getShader(gl: WebGLRenderingContext, id: string) {
     var shaderScript = <HTMLScriptElement>document.getElementById(id);
     if (!shaderScript) {
         return null;
@@ -250,7 +252,7 @@ function getShader(gl, id) {
         return null;
     }
 
-    gl.shaderSource(shader, gl.antiMoire + str);
+    gl.shaderSource(shader, /*gl.*/antiMoire + str);
     gl.compileShader(shader);
 
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
@@ -314,7 +316,7 @@ function mergeModels(parts) {
         }
 
         for (j = 0; j < model.faceIndices.length; j++) {
-            faceIndices.push(model.faceIndices[j].map(function (x) { return x + n; }));
+            faceIndices.push(model.faceIndices[j].map((x) => x + n));
             faceMaterials.push(model.faceMaterials[j]);
             faceBiases.push(model.faceBiases[j]);
         }
@@ -400,8 +402,8 @@ function initMesh(model) {
 
     var mesh = new Mesh();
 
-    mesh.vertexPosition = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, mesh.vertexPosition);
+    mesh.vertexPosition.buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, mesh.vertexPosition.buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(flatVertices), gl.STATIC_DRAW);
     mesh.vertexPosition.itemSize = 3;
     mesh.vertexPosition.numItems = flatVertices.length / 3;
@@ -438,14 +440,14 @@ var tempRot = mat4.create();
 var t0;
 
 // Render a mesh
-function renderMesh(mesh) {
+function renderMesh(mesh: Mesh) {
     mat4.toInverseMat3(worldProjection, normalProjection);
     mat3.transpose(normalProjection);
 
     gl.uniformMatrix4fv(shaderProgram.worldProjection, false, worldProjection);
     gl.uniformMatrix3fv(shaderProgram.normalProjection, false, normalProjection);
 
-    gl.bindBuffer(gl.ARRAY_BUFFER, mesh.vertexPosition);
+    gl.bindBuffer(gl.ARRAY_BUFFER, mesh.vertexPosition.buffer);
     gl.vertexAttribPointer(shaderProgram.vertexPosition, mesh.vertexPosition.itemSize, gl.FLOAT, false, 0, 0);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, mesh.vertexNormal);
@@ -537,6 +539,8 @@ function updateScene() {
             jl.integrate(ms);
         }
     }
+
+    window.requestAnimationFrame(updateScene)
 }
 
 var scale = [scaleFactor, scaleFactor, scaleFactor];
@@ -663,7 +667,7 @@ function buildTrack(codes) {
         addModel({ trans: makeTrans(29, i, false, 3), model: 'fenc' });
     }
 
-    var startInfo;
+    //var startInfo;
 
     for (i = 0; i < trackItems.length; i++) {
         var item = trackItems[i];
@@ -680,7 +684,7 @@ function buildTrack(codes) {
 
         // Start tile: three materials * four orientations
         if (isElement([0x01, 0x86, 0x93, 0xB3, 0x87, 0x94, 0xB4, 0x88, 0x95, 0xB5, 0x89, 0x96], item.id)) {
-            startInfo = { x: item.x, y: item.y, o: orientation, elevated: item.elevated };
+            var startInfo = { x: item.x, y: item.y, o: orientation, elevated: item.elevated };
         }
     }
 
@@ -786,5 +790,6 @@ function start() {
         }
     };
 
-    setInterval(updateScene, 15);
+    //setInterval(updateScene, 15);
+    updateScene();
 }

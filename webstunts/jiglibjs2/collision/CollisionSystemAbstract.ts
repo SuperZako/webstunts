@@ -23,13 +23,13 @@
 module jiglib {
 
     export class CollisionSystemAbstract {
-        detectionFunctors = null; // Dictionary
+        detectionFunctors: { [index: string]: CollDetectFunctor } = {}; // Dictionary
         collBody: RigidBody[] = []; // RigidBody
         _numCollisionsChecks = 0; // uint
         startPoint: Vector3D = null; // Vector3D
 
         constructor() {
-            this.detectionFunctors = [];
+            //this.detectionFunctors = [];
             this.detectionFunctors["BOX_BOX"] = new CollDetectBoxBox();
             this.detectionFunctors["BOX_SPHERE"] = new CollDetectSphereBox();
             this.detectionFunctors["BOX_CAPSULE"] = new CollDetectCapsuleBox();

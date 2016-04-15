@@ -3,7 +3,7 @@
 
 module jiglib {
     export class CollDetectInfo {
-        body0: RigidBody= null; // RigidBody
-        body1: RigidBody= null; // RigidBody
+        body0: RigidBody = null; 
+        body1: RigidBody = null; 
     }
 }

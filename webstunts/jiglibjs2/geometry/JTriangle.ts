@@ -83,30 +83,30 @@ module jiglib {
 
         segmentTriangleIntersection(out: CollOutData, seg) {
 
-
-            var u, v, t, f;
-            var s, q;
-
             let p = seg.delta.crossProduct(this.edge1);
             let a = this.edge0.dotProduct(p);
 
             if (a > -JMath3D.NUM_TINY && a < JMath3D.NUM_TINY) {
                 return false;
             }
-            f = 1 / a;
-            s = seg.origin.subtract(this.origin);
-            u = f * s.dotProduct(p);
+            let f = 1 / a;
+            let s = seg.origin.subtract(this.origin);
+            let u = f * s.dotProduct(p);
 
-            if (u < 0 || u > 1) return false;
+            if (u < 0 || u > 1)
+                return false;
 
-            q = s.crossProduct(this.edge0);
-            v = f * seg.delta.dotProduct(q);
-            if (v < 0 || (u + v) > 1) return false;
+            let q = s.crossProduct(this.edge0);
+            let v = f * seg.delta.dotProduct(q);
+            if (v < 0 || (u + v) > 1)
+                return false;
 
-            t = f * this.edge1.dotProduct(q);
-            if (t < 0 || t > 1) return false;
+            let t = f * this.edge1.dotProduct(q);
+            if (t < 0 || t > 1)
+                return false;
 
-            if (out) out.frac = t;
+            if (out)
+                out.frac = t;
             return true;
 
         }
@@ -114,18 +114,18 @@ module jiglib {
         pointTriangleDistanceSq(out, point) {
 
 
-            var fA00, fA01, fA11, fB0, fB1, fC, fDet, fS, fT, fSqrDist;
+            var fSqrDist;
 
-            var kDiff = this.origin.subtract(point);
-            fA00 = this.edge0.get_lengthSquared();
-            fA01 = this.edge0.dotProduct(this.edge1);
-            fA11 = this.edge1.get_lengthSquared();
-            fB0 = kDiff.dotProduct(this.edge0);
-            fB1 = kDiff.dotProduct(this.edge1);
-            fC = kDiff.get_lengthSquared();
-            fDet = Math.abs(fA00 * fA11 - fA01 * fA01);
-            fS = fA01 * fB1 - fA11 * fB0;
-            fT = fA01 * fB0 - fA00 * fB1;
+            let kDiff = this.origin.subtract(point);
+            let fA00 = this.edge0.get_lengthSquared();
+            let fA01 = this.edge0.dotProduct(this.edge1);
+            let fA11 = this.edge1.get_lengthSquared();
+            let fB0 = kDiff.dotProduct(this.edge0);
+            let fB1 = kDiff.dotProduct(this.edge1);
+            let fC = kDiff.get_lengthSquared();
+            let fDet = Math.abs(fA00 * fA11 - fA01 * fA01);
+            let fS = fA01 * fB1 - fA11 * fB0;
+            let fT = fA01 * fB0 - fA00 * fB1;
 
             if (fS + fT <= fDet) {
                 if (fS < 0) {

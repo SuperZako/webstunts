@@ -22,9 +22,7 @@ module jiglib {
 
         constructor() {
             super("SphereSphere", "SPHERE", "SPHERE");
-            //this.name = "SphereSphere";
-            //this.type0 = "SPHERE";
-            //this.type1 = "SPHERE";
+          
         }
 
 
