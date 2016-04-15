@@ -78,7 +78,7 @@ module jiglib {
 
         //equals(toCompare:Vector3D, allFour:Boolean = false):Boolean
         //Determines whether two Vector3D objects are equal by comparing the x, y, and z elements of the current Vector3D object with a specified Vector3D object.
-        equals(toCompare, allFour) {
+        equals(toCompare, allFour = false) {
             if (allFour)
                 return (this.x == toCompare.x && this.y == toCompare.y && this.z == toCompare.z && this.w == toCompare.w);
             else
@@ -101,13 +101,13 @@ module jiglib {
             var abs = Math.abs;
             if (allFour)
                 return (abs(this.x - toCompare.x) < tolerance
-                && abs(this.y - toCompare.y) < tolerance
-                && abs(this.z - toCompare.z) < tolerance
-                && abs(this.w - toCompare.w) < tolerance);
+                    && abs(this.y - toCompare.y) < tolerance
+                    && abs(this.z - toCompare.z) < tolerance
+                    && abs(this.w - toCompare.w) < tolerance);
             else
                 return (abs(this.x - toCompare.x) < tolerance
-                && abs(this.y - toCompare.y) < tolerance
-                && abs(this.z - toCompare.z) < tolerance);
+                    && abs(this.y - toCompare.y) < tolerance
+                    && abs(this.z - toCompare.z) < tolerance);
         }
         //negate():void
         //Sets the current Vector3D object to its inverse.

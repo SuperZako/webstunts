@@ -32,7 +32,7 @@ module jiglib {
 
         // Appends the matrix by multiplying another Matrix3D object by the current Matrix3D object.
         // return void
-        append(m) {
+        append(m: Matrix3D) {
             mat4.multiply(this._rawData, m._rawData);
         }
 

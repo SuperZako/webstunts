@@ -15,20 +15,20 @@
 
 module jiglib {
     export class JBox extends RigidBody {
-        _sideLengths: Vector3D = null; // Vector3D
-        _points: Vector3D[] = null; // Vector3D
-        _edges = [
+        private _sideLengths: Vector3D = null; // Vector3D
+        private _points: Vector3D[] = null; // Vector3D
+        private _edges = [
             new EdgeData(0, 1), new EdgeData(0, 2), new EdgeData(0, 6),
             new EdgeData(2, 3), new EdgeData(2, 4), new EdgeData(6, 7),
             new EdgeData(6, 4), new EdgeData(1, 3), new EdgeData(1, 7),
             new EdgeData(3, 5), new EdgeData(7, 5), new EdgeData(4, 5)]; // EdgeData
-        _face = [
+        private _face = [
             [[6, 7, 1, 0]], [[5, 4, 2, 3]],
             [[3, 1, 7, 5]], [[4, 6, 0, 2]],
             [[1, 3, 2, 0]], [[7, 6, 4, 5]]
-        ]; 
+        ];
 
-        constructor(skin, width: number, depth: number, height: number) {
+        constructor(skin: ISkin3D, width: number, depth: number, height: number) {
             super(skin);
             this._type = "BOX";
 
@@ -129,19 +129,15 @@ module jiglib {
         }
 
         getCornerPointsInBoxSpace(thisState, boxState) {
-
-
-            var max, orient, transform;
-
-            max = JMatrix3D.getTransposeMatrix(boxState.orientation);
+            let max = JMatrix3D.getTransposeMatrix(boxState.orientation);
             var pos = thisState.position.subtract(boxState.position);
             pos = max.transformVector(pos);
 
-            orient = JMatrix3D.getAppendMatrix3D(thisState.orientation, max);
+            let orient = JMatrix3D.getAppendMatrix3D(thisState.orientation, max);
 
-            var arr = [];
+            var arr: Vector3D[] = [];
 
-            transform = JMatrix3D.getTranslationMatrix(pos.x, pos.y, pos.z);
+            let transform = JMatrix3D.getTranslationMatrix(pos.x, pos.y, pos.z);
             transform = JMatrix3D.getAppendMatrix3D(orient, transform);
 
             var i = 0;
@@ -153,14 +149,12 @@ module jiglib {
         }
 
         getSqDistanceToPoint(state, closestBoxPoint, point) {
-
-            var _closestBoxPoint, halfSideLengths;
             var delta = 0, sqDistance = 0;
 
-            _closestBoxPoint = point.subtract(state.position);
+            let _closestBoxPoint = point.subtract(state.position);
             _closestBoxPoint = JMatrix3D.getTransposeMatrix(state.orientation).transformVector(_closestBoxPoint);
 
-            halfSideLengths = this.getHalfSideLengths();
+            let halfSideLengths = this.getHalfSideLengths();
 
             if (_closestBoxPoint.x < -halfSideLengths.x) {
                 delta = _closestBoxPoint.x + halfSideLengths.x;
@@ -231,14 +225,13 @@ module jiglib {
             out.position = new Vector3D();
             out.normal = new Vector3D();
 
-            var tiny = JMath3D.NUM_TINY, huge = JMath3D.NUM_HUGE, frac, min, max, dirMin = 0, dirMax = 0, dir = 0, e, f, t, t1, t2, directionVectorNumber;
-            var p, h;
+            var tiny = JMath3D.NUM_TINY, huge = JMath3D.NUM_HUGE,  dirMin = 0, dirMax = 0, dir = 0, e, f, t, t1, t2, directionVectorNumber;
 
-            frac = huge;
-            min = -huge;
-            max = huge;
-            p = state.position.subtract(seg.origin);
-            h = JNumber3D.getScaleVector(this._sideLengths, 0.5);
+            let frac = huge;
+            let min = -huge;
+            let max = huge;
+            let p = state.position.subtract(seg.origin);
+            let h = JNumber3D.getScaleVector(this._sideLengths, 0.5);
 
             var orientationCol = state.getOrientationCols();
             var directionVectorArray = JNumber3D.toArray(h);
