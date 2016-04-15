@@ -60,7 +60,7 @@ function vec(xyz: number[] | Float32Array) {
     return new jiglib.Vector3D(xyz[0], xyz[1], xyz[2], 0);
 }
 
-function isElement(array, value) {
+function isElement(array: number[], value: number) {
     return array.some((elem) => elem == value);
 }
 
@@ -208,7 +208,7 @@ function initPhysics() {
 }
 
 // Initialise WebGL
-function initGL(canvas) {
+function initGL(canvas: HTMLCanvasElement) {
     try {
         gl = canvas.getContext("experimental-webgl");
         /*gl.*/viewportWidth = canvas.width;
@@ -331,7 +331,7 @@ function mergeModels(parts) {
 }
 
 // Convert a Stunts mesh into buffers ready for rendering
-function initMesh(model:IModel) {
+function initMesh(model: IModel) {
     var vertices = model.vertices;
     var faceIndices = model.faceIndices;
     var faceMaterials = model.faceMaterials;
@@ -601,8 +601,16 @@ function buildTrack(codes: number[]) {
                 // Everything else including slope replacements
                 default:
                     switch (terrainData[y][x]) {
-                        case 0x07: if (map07[c] != undefined) { c = map07[c]; } break;
-                        case 0x08: if (map08[c] != undefined) { c = map08[c]; } break;
+                        case 0x07:
+                            if (map07[c] != undefined) {
+                                c = map07[c];
+                            }
+                            break;
+                        case 0x08:
+                            if (map08[c] != undefined) {
+                                c = map08[c];
+                            }
+                            break;
                         case 0x09: if (map09[c] != undefined) { c = map09[c]; } break;
                         case 0x0A: if (map0A[c] != undefined) { c = map0A[c]; } break;
                     }
@@ -728,7 +736,7 @@ function start() {
     //    notify("This browser doesn't sopport the file api. You cannot load tracks.");
     //}
 
-    var canvas = document.getElementById("stunts-canvas");
+    var canvas = <HTMLCanvasElement>document.getElementById("stunts-canvas");
 
     initGL(canvas);
     initShaders();

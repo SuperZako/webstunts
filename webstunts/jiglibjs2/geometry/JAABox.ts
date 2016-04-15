@@ -1,49 +1,29 @@
-﻿
-
-
-/// <reference path="../cof/JConfig.ts"/>
-
+﻿/// <reference path="../cof/JConfig.ts"/>
 /// <reference path="../data/SpanData.ts"/>
-
 /// <reference path="../geom/Vector3D.ts"/>
-
 /// <reference path="../math/JMath3D.ts"/>
 /// <reference path="../math/JNumber3D.ts"/>
-
 /// <reference path="../physics/MaterialProperties.ts"/>
 /// <reference path="../physics/RigidBody.ts"/>
-
-
-
-
-module jiglib {
-
+namespace jiglib {
     export class JAABox {
-        minPos = null; // Vector3D
-        maxPos = null; // Vector3D
+        minPos: Vector3D = null; // Vector3D
+        maxPos: Vector3D = null; // Vector3D
 
         constructor() {
             this.clear();
-
         }
 
         get_sideLengths() {
-
             var pos = this.maxPos.clone();
             pos = pos.subtract(this.minPos);
             return pos;
-
         }
-
         get_centrePos() {
-
             var pos = this.minPos.clone();
             return JNumber3D.getScaleVector(pos.add(this.maxPos), 0.5);
-
         }
-
         getAllPoints() {
-
             var center, halfSide;
             var points;
             center = this.get_centrePos();
@@ -113,7 +93,7 @@ module jiglib {
 
         }
 
-        addBox(box) {
+        addBox(box: JBox) {
 
             var pts = box.getCornerPoints(box.get_currentState());
             this.addPoint(pts[0]);
@@ -225,11 +205,11 @@ module jiglib {
         overlapTest(box) {
 
             return (!((this.minPos.z >= box.maxPos.z) ||
-            (this.maxPos.z <= box.minPos.z) ||
-            (this.minPos.y >= box.maxPos.y) ||
-            (this.maxPos.y <= box.minPos.y) ||
-            (this.minPos.x >= box.maxPos.x) ||
-            (this.maxPos.x <= box.minPos.x)));
+                (this.maxPos.z <= box.minPos.z) ||
+                (this.minPos.y >= box.maxPos.y) ||
+                (this.maxPos.y <= box.minPos.y) ||
+                (this.minPos.x >= box.maxPos.x) ||
+                (this.maxPos.x <= box.minPos.x)));
 
         }
 

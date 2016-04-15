@@ -9,7 +9,7 @@ module jiglib {
         _minCellSize: number = null; // Number
         _skinVertices: Vector3D[] = null; // Vector3D
 
-        constructor(skin: ISkin3D, initPosition, initOrientation, maxTrianglesPerCell, minCellSize) {
+        constructor(skin: ISkin3D, initPosition, initOrientation, maxTrianglesPerCell: number, minCellSize: number) {
             super(skin);
 
             this.get_currentState().position = initPosition.clone();
@@ -39,7 +39,6 @@ module jiglib {
             transform = JMatrix3D.getAppendMatrix3D(this.get_currentState().orientation, transform);
 
             var i = 0;
-            //for (var vertices_i = 0, vertices_l = vertices.length, _point; (vertices_i < vertices_l) && (_point = vertices[vertices_i]); vertices_i++) {
             for (let _point of vertices) {
                 vts[i++] = transform.transformVector(_point);
             }
@@ -94,7 +93,7 @@ module jiglib {
             transform = JMatrix3D.getAppendMatrix3D(this.get_currentState().orientation, transform);
 
             var i = 0;
-            for (var _skinVertices_i = 0, _skinVertices_l = this._skinVertices.length, _point; (_skinVertices_i < _skinVertices_l) && (_point = this._skinVertices[_skinVertices_i]); _skinVertices_i++) {
+            for (let _point of this._skinVertices) {
                 vts[i++] = transform.transformVector(_point);
             }
 

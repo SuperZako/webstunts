@@ -17,21 +17,16 @@
 /// <reference path="CollDetectInfo.ts"/>
 
 
-module jiglib {
-
-
+namespace jiglib {
     export class CollDetectSphereCapsule extends CollDetectFunctor {
         constructor() {
             super("SphereCapsule", "SPHERE", "CAPSULE");
-
         }
 
+        public collDetect(info, collArr) {
 
-        collDetect(info, collArr) {
-
-            var tempBody;
             if (info.body0.get_type() == "CAPSULE") {
-                tempBody = info.body0;
+                let tempBody = info.body0;
                 info.body0 = info.body1;
                 info.body1 = tempBody;
             }
@@ -72,7 +67,7 @@ module jiglib {
 
                 var worldPos = segPos.add(JNumber3D.getScaleVector(delta, capsule.get_radius() - 0.5 * depth));
 
-                var collPts = [];
+                var collPts: CollPointInfo[] = [];
                 var cpInfo = new CollPointInfo();
                 cpInfo.r0 = worldPos.subtract(sphere.get_oldState().position);
                 cpInfo.r1 = worldPos.subtract(capsule.get_oldState().position);

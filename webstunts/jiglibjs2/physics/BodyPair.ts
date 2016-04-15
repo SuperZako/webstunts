@@ -5,10 +5,10 @@
 module jiglib {
 
     export class BodyPair {
-        body0: RigidBody= null; // RigidBody
-        body1: RigidBody= null; // RigidBody
+        body0: RigidBody = null; // RigidBody
+        body1: RigidBody = null; // RigidBody
         r = null; // Vector3D
-        constructor(_body0, _body1, r0, r1) {
+        constructor(_body0: RigidBody, _body1: RigidBody, r0: Vector3D, r1: Vector3D) {
 
 
             var id1 = -1;

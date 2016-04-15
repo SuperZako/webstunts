@@ -18,20 +18,15 @@
 /// <reference path="CollDetectInfo.ts"/>
 
 
-module jiglib {
-
+namespace jiglib {
     export class CollDetectCapsuleTerrain extends CollDetectFunctor {
-
         constructor() {
             super("CapsuleTerrain", "CAPSULE", "TERRAIN");
         }
+        public collDetect(info, collArr) {
 
-
-        collDetect(info, collArr) {
-
-            var tempBody;
             if (info.body0.get_type() == "TERRAIN") {
-                tempBody = info.body0;
+                let tempBody = info.body0;
                 info.body0 = info.body1;
                 info.body1 = tempBody;
             }

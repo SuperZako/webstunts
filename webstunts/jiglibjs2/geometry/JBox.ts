@@ -15,8 +15,8 @@
 
 module jiglib {
     export class JBox extends RigidBody {
-        _sideLengths: Vector3D= null; // Vector3D
-        _points: Vector3D[]= null; // Vector3D
+        _sideLengths: Vector3D = null; // Vector3D
+        _points: Vector3D[] = null; // Vector3D
         _edges = [
             new EdgeData(0, 1), new EdgeData(0, 2), new EdgeData(0, 6),
             new EdgeData(2, 3), new EdgeData(2, 4), new EdgeData(6, 7),
@@ -25,9 +25,10 @@ module jiglib {
         _face = [
             [[6, 7, 1, 0]], [[5, 4, 2, 3]],
             [[3, 1, 7, 5]], [[4, 6, 0, 2]],
-            [[1, 3, 2, 0]], [[7, 6, 4, 5]]]; // Vector.<Vector.<Number>>
+            [[1, 3, 2, 0]], [[7, 6, 4, 5]]
+        ]; 
 
-        constructor(skin, width, depth, height) {
+        constructor(skin, width: number, depth: number, height: number) {
             super(skin);
             this._type = "BOX";
 
@@ -96,15 +97,13 @@ module jiglib {
         }
 
         getSpan(axis) {
-
-            var s, u, d, r, p;
             var cols = this.get_currentState().getOrientationCols();
             var obj = new SpanData();
-            s = Math.abs(axis.dotProduct(cols[0])) * (0.5 * this._sideLengths.x);
-            u = Math.abs(axis.dotProduct(cols[1])) * (0.5 * this._sideLengths.y);
-            d = Math.abs(axis.dotProduct(cols[2])) * (0.5 * this._sideLengths.z);
-            r = s + u + d;
-            p = this.get_currentState().position.dotProduct(axis);
+            let s = Math.abs(axis.dotProduct(cols[0])) * (0.5 * this._sideLengths.x);
+            let u = Math.abs(axis.dotProduct(cols[1])) * (0.5 * this._sideLengths.y);
+            let d = Math.abs(axis.dotProduct(cols[2])) * (0.5 * this._sideLengths.z);
+            let r = s + u + d;
+            let p = this.get_currentState().position.dotProduct(axis);
             obj.min = p - r;
             obj.max = p + r;
 
@@ -146,7 +145,7 @@ module jiglib {
             transform = JMatrix3D.getAppendMatrix3D(orient, transform);
 
             var i = 0;
-            for (var _points_i = 0, _points_l = this._points.length, _point; (_points_i < _points_l) && (_point = this._points[_points_i]); _points_i++)
+            for (let _point of this._points)
                 arr[i++] = transform.transformVector(_point);
 
             return arr;
@@ -302,12 +301,12 @@ module jiglib {
 
         getInertiaProperties(m) {
 
-		return JMatrix3D.getScaleMatrix(
+            return JMatrix3D.getScaleMatrix(
                 (m / 12) * (this._sideLengths.y * this._sideLengths.y + this._sideLengths.z * this._sideLengths.z),
                 (m / 12) * (this._sideLengths.x * this._sideLengths.x + this._sideLengths.z * this._sideLengths.z),
                 (m / 12) * (this._sideLengths.x * this._sideLengths.x + this._sideLengths.y * this._sideLengths.y))
 
-	}
+        }
 
         updateBoundingBox() {
 
