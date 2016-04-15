@@ -40,7 +40,7 @@ module jiglib {
         _accelerate = null; // Number
         _HBrake = null; // Number
         _chassis: JChassis = null; // JChassis
-        _wheels = null; // Array
+        _wheels: JWheel[] = null; // Array
         _steerWheels = null; // Array
         constructor(skin) {
 
@@ -63,14 +63,14 @@ module jiglib {
 
         }
 
-        setupWheel(_name, pos, wheelSideFriction, wheelFwdFriction, wheelTravel, wheelRadius, wheelRestingFrac, wheelDampingFrac, wheelNumRays) {
-            if (wheelSideFriction == null) wheelSideFriction = 2;
-            if (wheelFwdFriction == null) wheelFwdFriction = 2;
-            if (wheelTravel == null) wheelTravel = 3;
-            if (wheelRadius == null) wheelRadius = 10;
-            if (wheelRestingFrac == null) wheelRestingFrac = 0.5;
-            if (wheelDampingFrac == null) wheelDampingFrac = 0.5;
-            if (wheelNumRays == null) wheelNumRays = 1;
+        setupWheel(_name, pos, wheelSideFriction = 2, wheelFwdFriction = 2, wheelTravel = 3, wheelRadius = 10, wheelRestingFrac = 0.5, wheelDampingFrac = 0.5, wheelNumRays = 1) {
+            //if (wheelSideFriction == null) wheelSideFriction = 2;
+            //if (wheelFwdFriction == null) wheelFwdFriction = 2;
+            //if (wheelTravel == null) wheelTravel = 3;
+            //if (wheelRadius == null) wheelRadius = 10;
+            //if (wheelRestingFrac == null) wheelRestingFrac = 0.5;
+            //if (wheelDampingFrac == null) wheelDampingFrac = 0.5;
+            //if (wheelNumRays == null) wheelNumRays = 1;
 
             var mass = this._chassis.get_mass();
             var mass4 = 0.25 * mass;

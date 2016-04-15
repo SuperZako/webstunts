@@ -38,7 +38,7 @@ module jiglib {
 
         // Appends an incremental rotation to a Matrix3D object.
         // return void
-        appendRotation(angle, axis, pivot = null) {
+        appendRotation(angle: number, axis: Vector3D, pivot: Vector3D = null) {
             // angle = angle/(3.14159*2);	
             angle = angle * Math.PI / 180;
             if (pivot) {

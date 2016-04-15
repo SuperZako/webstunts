@@ -67,7 +67,7 @@ namespace jiglib {
 
         }
 
-        getBoxTriangleIntersectionPoints(pts, box, triangle: JTriangle, combinationDistanceSq) {
+        getBoxTriangleIntersectionPoints(pts, box: JBox, triangle: JTriangle, combinationDistanceSq) {
 
             var edges = box.get_edges();
             var boxPts = box.getCornerPoints(box.get_currentState());
@@ -102,19 +102,19 @@ namespace jiglib {
 
         }
 
-        doOverlapBoxTriangleTest(box, triangle, mesh, info, collArr: CollisionInfo[]) {
+        doOverlapBoxTriangleTest(box: JBox, triangle: JIndexedTriangle, mesh, info, collArr: CollisionInfo[]) {
 
 
-            var triEdge0, triEdge1, triEdge2, triNormal, D, N, boxOldPos, boxNewPos, meshPos, delta;
+            var D, N, boxOldPos, boxNewPos, meshPos, delta;
             var dirs0 = box.get_currentState().getOrientationCols();
             var tri = new JTriangle(mesh.get_octree().getVertex(triangle.getVertexIndex(0)), mesh.get_octree().getVertex(triangle.getVertexIndex(1)), mesh.get_octree().getVertex(triangle.getVertexIndex(2)));
-            triEdge0 = tri.getVertex(1).subtract(tri.getVertex(0));
+            let triEdge0 = tri.getVertex(1).subtract(tri.getVertex(0));
             triEdge0.normalize();
-            triEdge1 = tri.getVertex(2).subtract(tri.getVertex(1));
+            let triEdge1 = tri.getVertex(2).subtract(tri.getVertex(1));
             triEdge1.normalize();
-            triEdge2 = tri.getVertex(0).subtract(tri.getVertex(2));
+            let triEdge2 = tri.getVertex(0).subtract(tri.getVertex(2));
             triEdge2.normalize();
-            triNormal = triangle.get_plane().get_normal().clone();
+            let triNormal = triangle.get_plane().get_normal().clone();
 
             var numAxes = 13;
             var axes = [triNormal, dirs0[0], dirs0[1], dirs0[2],

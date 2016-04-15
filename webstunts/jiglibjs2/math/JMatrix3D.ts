@@ -22,7 +22,7 @@ module jiglib {
 
         }
 
-        static getRotationMatrix(x, y, z, degree, pivotPoint= null) {
+        static getRotationMatrix(x, y, z, degree, pivotPoint = null) {
 
             var matrix3D = new Matrix3D();
             matrix3D.appendRotation(degree, new Vector3D(x, y, z), pivotPoint);
@@ -87,10 +87,10 @@ module jiglib {
 
         }
 
-        static getCols(matrix3D) {
+        static getCols(matrix3D: Matrix3D) {
 
             var rawData = matrix3D.get_rawData();
-            var cols = [];
+            var cols: Vector3D[] = [];
 
             cols[0] = new Vector3D(rawData[0], rawData[4], rawData[8]);
             cols[1] = new Vector3D(rawData[1], rawData[5], rawData[9]);
