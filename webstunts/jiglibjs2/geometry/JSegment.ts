@@ -11,22 +11,10 @@ module jiglib {
     }
 
     export class JSegment {
-
-        origin = null; // Vector3D
-        delta = null; // Vector3D
-
-        constructor(_origin, _delta) {
-
-
-            this.origin = _origin;
-            this.delta = _delta;
-
-        }
+        constructor(public origin: Vector3D, public delta: Vector3D) { }
 
         getPoint(t) {
-
             return this.origin.add(JNumber3D.getScaleVector(this.delta, t));
-
         }
 
         getEnd() {

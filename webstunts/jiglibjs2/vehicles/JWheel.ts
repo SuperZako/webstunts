@@ -58,7 +58,7 @@ module jiglib {
         rimVel = null; // Vector3D
         worldVel = null; // Vector3D
         wheelCentreVel = null; // Vector3D
-        _collisionSystem = null; // CollisionSystemAbstract
+        _collisionSystem: CollisionSystemAbstract = null; // CollisionSystemAbstract
         constructor(car) {
             this._car = car;
 

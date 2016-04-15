@@ -7,22 +7,17 @@ module jiglib {
             super();
         }
 
-        detectAllCollisions(bodies, collArr) {
-
-            var info;
-            var fu;
-            var bodyID;
-            var bodyType;
+        detectAllCollisions(bodies: RigidBody[], collArr) {
             this._numCollisionsChecks = 0;
-            for (var bodies_i = 0, bodies_l = bodies.length, _body; (bodies_i < bodies_l) && (_body = bodies[bodies_i]); bodies_i++) {
+            for (let _body of bodies) {
 
                 if (!_body.isActive)
                     continue;
 
-                bodyID = _body.get_id();
-                bodyType = _body.get_type();
+                let bodyID = _body.get_id();
+                let bodyType = _body.get_type();
 
-                for (var collBody_i = 0, collBody_l = this.collBody.length, _collBody; (collBody_i < collBody_l) && (_collBody = this.collBody[collBody_i]); collBody_i++) {
+                for (let _collBody of this.collBody) {
                     if (_body == _collBody) {
                         continue;
                     }
@@ -32,10 +27,10 @@ module jiglib {
                     }
 
                     if (this.checkCollidables(_body, _collBody) && this.detectionFunctors[bodyType + "_" + _collBody.get_type()] != undefined) {
-                        info = new CollDetectInfo();
+                        let info = new CollDetectInfo();
                         info.body0 = _body;
                         info.body1 = _collBody;
-                        fu = this.detectionFunctors[info.body0.get_type() + "_" + info.body1.get_type()];
+                        let fu = this.detectionFunctors[info.body0.get_type() + "_" + info.body1.get_type()];
                         fu.collDetect(info, collArr);
                         this._numCollisionsChecks += 1;
                     }

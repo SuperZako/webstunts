@@ -23,9 +23,6 @@ module jiglib {
     export class CollDetectSphereCapsule extends CollDetectFunctor {
         constructor() {
             super("SphereCapsule", "SPHERE", "CAPSULE");
-            //this.name = "SphereCapsule";
-            //this.type0 = "SPHERE";
-            //this.type1 = "CAPSULE";
 
         }
 

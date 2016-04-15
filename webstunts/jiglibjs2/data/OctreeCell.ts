@@ -18,11 +18,11 @@ module jiglib {
 
     export class OctreeCell {
         childCellIndices = null; // int
-        triangleIndices = null; // int
-        AABox: JAABox= null; // JAABox
+        triangleIndices: number[] = null; // int
+        AABox: JAABox = null; // JAABox
         _points = null; // Vector3D
         _egdes = null; // EdgeData
-        constructor(aabox) {
+        constructor(aabox: JAABox) {
 
 
             this.childCellIndices = [];

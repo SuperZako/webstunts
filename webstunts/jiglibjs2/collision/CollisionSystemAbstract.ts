@@ -83,7 +83,6 @@ module jiglib {
             if (!body.isActive)
                 return;
 
-            //for (var collBody_i = 0, collBody_l = this.collBody.length, _collBody; (collBody_i < collBody_l) && (_collBody = this.collBody[collBody_i]); collBody_i++) {
             for (let _collBody of this.collBody) {
                 if (body == _collBody) {
                     continue;
@@ -110,14 +109,14 @@ module jiglib {
 
         }
 
-        segmentIntersect(out, seg, ownerBody) {
+        segmentIntersect(out: CollOutBodyData, seg: JSegment, ownerBody: RigidBody) {
 
             out.frac = JMath3D.NUM_HUGE;
             out.position = new Vector3D();
             out.normal = new Vector3D();
 
             var obj = new CollOutBodyData();
-            for (var collBody_i = 0, collBody_l = this.collBody.length, _collBody; (collBody_i < collBody_l) && (_collBody = this.collBody[collBody_i]); collBody_i++) {
+            for (let _collBody of this.collBody) {
                 if (_collBody != ownerBody && this.segmentBounding(seg, _collBody)) {
                     if (_collBody.segmentIntersect(obj, seg, _collBody.get_currentState())) {
                         if (obj.frac < out.frac) {
@@ -165,7 +164,7 @@ module jiglib {
 
         }
 
-        checkCollidables(body0, body1) {
+        checkCollidables(body0: RigidBody, body1: RigidBody) {
 
             if (body0.get_nonCollidables().length == 0 && body1.get_nonCollidables().length == 0)
                 return true;

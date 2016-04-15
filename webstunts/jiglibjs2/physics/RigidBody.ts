@@ -37,9 +37,9 @@ module jiglib {
         _type = null; // String
         _boundingSphere: number = null; // Number
         _boundingBox = new JAABox(); // JAABox
-        _currState = null; // PhysicsState
-        _oldState = null; // PhysicsState
-        _storeState = null; // PhysicsState
+        _currState = new PhysicsState();
+        _oldState = new PhysicsState();
+        _storeState = new PhysicsState();
         _invOrientation = null; // Matrix3D
         _currLinVelocityAux = null; // Vector3D
         _currRotVelocityAux = null; // Vector3D
@@ -88,9 +88,6 @@ module jiglib {
             this._bodyInertia = new Matrix3D();
             this._bodyInvInertia = JMatrix3D.getInverseMatrix(this._bodyInertia);
 
-            this._currState = new PhysicsState();
-            this._oldState = new PhysicsState();
-            this._storeState = new PhysicsState();
             this._currLinVelocityAux = new Vector3D();
             this._currRotVelocityAux = new Vector3D();
 
@@ -128,7 +125,7 @@ module jiglib {
 
         updateRotationValues() {
 
-            var rotationVector = this._currState.orientation.decompose()[1];
+            //var rotationVector = this._currState.orientation.decompose()[1];
 
 
         }
@@ -725,7 +722,7 @@ module jiglib {
 
         }
 
-        segmentIntersect(out, seg, state) {
+        segmentIntersect(out: CollOutBodyData, seg:JSegment, state) {
 
             return false;
 

@@ -24,7 +24,7 @@ module jiglib {
             super("SphereTerrain", "SPHERE", "TERRAIN");
         }
 
-        collDetect(info, collArr) {
+        collDetect(info: CollDetectInfo, collArr) {
 
             var tempBody;
             if (info.body0.get_type() == "TERRAIN") {
@@ -33,8 +33,8 @@ module jiglib {
                 info.body1 = tempBody;
             }
 
-            var sphere = info.body0;
-            var terrain = info.body1;
+            var sphere = <JSphere>info.body0;
+            var terrain = <JTerrain>info.body1;
 
             var obj = terrain.getHeightAndNormalByPoint(sphere.get_currentState().position);
             if (obj.height < JConfig.collToll + sphere.get_radius()) {

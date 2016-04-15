@@ -1,12 +1,7 @@
 ﻿
-module jiglib {
-
-
-
+namespace jiglib {
     export class ContactData {
-        pair = null; // BodyPair
-        impulse = null; // CachedImpulse
+        pair: BodyPair = null; // BodyPair
+        impulse: CachedImpulse = null; // CachedImpulse
     }
-
-
 }

@@ -54,28 +54,25 @@ module jiglib {
 
         }
 
-        addTriangles(vertices, numVertices, triangleVertexIndices: TriangleVertexIndices[], numTriangles) {
+        addTriangles(vertices: Vector3D[], numVertices: number, triangleVertexIndices: TriangleVertexIndices[], numTriangles: number) {
 
             this.clear();
 
             this._vertices = vertices.concat();
 
-            var NLen, tiny = JMath3D.NUM_TINY;
-            var dr1, dr2, N;
-            var indexedTriangle;
-            //for (var triangleVertexIndices_i = 0, triangleVertexIndices_l = triangleVertexIndices.length, tri; (triangleVertexIndices_i < triangleVertexIndices_l) && (tri = triangleVertexIndices[triangleVertexIndices_i]); triangleVertexIndices_i++) {
+            var tiny = JMath3D.NUM_TINY;
             for (let tri of triangleVertexIndices) {
                 let i0 = tri.i0;
                 let i1 = tri.i1;
                 let i2 = tri.i2;
 
-                dr1 = vertices[i1].subtract(vertices[i0]);
-                dr2 = vertices[i2].subtract(vertices[i0]);
-                N = dr1.crossProduct(dr2);
-                NLen = N.get_length();
+                let dr1 = vertices[i1].subtract(vertices[i0]);
+                let dr2 = vertices[i2].subtract(vertices[i0]);
+                let N = dr1.crossProduct(dr2);
+                let NLen = N.get_length();
 
                 if (NLen > tiny) {
-                    indexedTriangle = new JIndexedTriangle();
+                    let indexedTriangle = new JIndexedTriangle();
                     indexedTriangle.setVertexIndices(i0, i1, i2, this._vertices);
                     this._triangles.push(indexedTriangle);
                 }
@@ -83,11 +80,11 @@ module jiglib {
 
         }
 
-        buildOctree(maxTrianglesPerCell, minCellSize) {
+        buildOctree(maxTrianglesPerCell: number, minCellSize: number) {
 
             this._boundingBox.clear();
 
-            for (var _vertices_i = 0, _vertices_l = this._vertices.length, vt; (_vertices_i < _vertices_l) && (vt = this._vertices[_vertices_i]); _vertices_i++) {
+            for (let vt of this._vertices) {
                 this._boundingBox.addPoint(vt);
             }
 
@@ -99,14 +96,11 @@ module jiglib {
                 this._cells[0].triangleIndices[i] = i;
             }
 
-            var cellsToProcess = [];
+            var cellsToProcess: number[] = [];
             cellsToProcess.push(0);
 
-            var iTri;
-            var cellIndex;
-            var childCell;
             while (cellsToProcess.length != 0) {
-                cellIndex = cellsToProcess.pop();
+                let cellIndex = cellsToProcess.pop();
 
                 if (this._cells[cellIndex].triangleIndices.length <= maxTrianglesPerCell || this._cells[cellIndex].AABox.getRadiusAboutCentre() < minCellSize) {
                     continue;
@@ -116,10 +110,10 @@ module jiglib {
                     cellsToProcess.push(this._cells.length);
                     this._cells.push(new OctreeCell(this.createAABox(this._cells[cellIndex].AABox, i)));
 
-                    childCell = this._cells[this._cells.length - 1];
+                    let childCell = this._cells[this._cells.length - 1];
                     numTriangles = this._cells[cellIndex].triangleIndices.length;
                     for (var j = 0; j < numTriangles; j++) {
-                        iTri = this._cells[cellIndex].triangleIndices[j];
+                        let iTri = this._cells[cellIndex].triangleIndices[j];
                         if (this.doesTriangleIntersectCell(this._triangles[iTri], childCell)) {
                             childCell.triangleIndices.push(iTri);
                         }
@@ -130,40 +124,40 @@ module jiglib {
 
         }
 
-        updateTriangles(vertices) {
+        updateTriangles(vertices: Vector3D[]) {
 
             this._vertices = vertices.concat();
 
-            for (var _triangles_i = 0, _triangles_l = this._triangles.length, triangle; (_triangles_i < _triangles_l) && (triangle = this._triangles[_triangles_i]); _triangles_i++) {
+            for (let triangle of this._triangles) {
                 triangle.updateVertexIndices(this._vertices);
             }
 
         }
 
-        getTrianglesIntersectingtAABox(triangles, aabb) {
+        getTrianglesIntersectingtAABox(triangles: number[], aabb: JAABox) {
 
-            if (this._cells.length == 0) return 0;
+            if (this._cells.length == 0)
+                return 0;
 
             this._cellsToTest.length = 0;
             this._cellsToTest.push(0);
 
             this.incrementTestCounter();
 
-            var cellIndex, nTris, cell, triangle;
 
             while (this._cellsToTest.length != 0) {
-                cellIndex = this._cellsToTest.pop();
+                let cellIndex = this._cellsToTest.pop();
 
-                cell = this._cells[cellIndex];
+                let cell = this._cells[cellIndex];
 
                 if (!aabb.overlapTest(cell.AABox)) {
                     continue;
                 }
 
                 if (cell.isLeaf()) {
-                    nTris = cell.triangleIndices.length;
+                    let nTris = cell.triangleIndices.length;
                     for (var i = 0; i < nTris; i++) {
-                        triangle = this.getTriangle(cell.triangleIndices[i]);
+                        let triangle = this.getTriangle(cell.triangleIndices[i]);
                         if (triangle.counter != this._testCounter) {
                             triangle.counter = this._testCounter;
                             if (aabb.overlapTest(triangle.get_boundingBox())) {
@@ -209,37 +203,36 @@ module jiglib {
 
         }
 
-        createAABox(aabb, _id) {
+        createAABox(aabb: JAABox, _id) {
 
             var dims = JNumber3D.getScaleVector(aabb.maxPos.subtract(aabb.minPos), 0.5);
-            var offset;
             switch (_id) {
                 case 0:
-                    offset = new Vector3D(1, 1, 1);
+                    var offset = new Vector3D(1, 1, 1);
                     break;
                 case 1:
-                    offset = new Vector3D(1, 1, 0);
+                    var offset = new Vector3D(1, 1, 0);
                     break;
                 case 2:
-                    offset = new Vector3D(1, 0, 1);
+                    var offset = new Vector3D(1, 0, 1);
                     break;
                 case 3:
-                    offset = new Vector3D(1, 0, 0);
+                    var offset = new Vector3D(1, 0, 0);
                     break;
                 case 4:
-                    offset = new Vector3D(0, 1, 1);
+                    var offset = new Vector3D(0, 1, 1);
                     break;
                 case 5:
-                    offset = new Vector3D(0, 1, 0);
+                    var offset = new Vector3D(0, 1, 0);
                     break;
                 case 6:
-                    offset = new Vector3D(0, 0, 1);
+                    var offset = new Vector3D(0, 0, 1);
                     break;
                 case 7:
-                    offset = new Vector3D(0, 0, 0);
+                    var offset = new Vector3D(0, 0, 0);
                     break;
                 default:
-                    offset = new Vector3D(0, 0, 0);
+                    var offset = new Vector3D(0, 0, 0);
                     break;
             }
 
@@ -298,7 +291,7 @@ module jiglib {
 
             ++this._testCounter;
             if (this._testCounter == 0) {
-                var numTriangles = this._triangles.length;
+                let numTriangles = this._triangles.length;
                 for (var i = 0; i < numTriangles; i++) {
                     this._triangles[i].counter = 0;
                 }

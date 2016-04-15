@@ -2,7 +2,7 @@
 module jiglib {
 
     export class JCollisionEvent {
-        body = null; // RigidBody
+        body: RigidBody = null; // RigidBody
         constructor(type) {
         }
         static COLLISION_START = "collisionStart"; // String

@@ -16,15 +16,10 @@
 module jiglib {
 
     export class PlaneData {
-        _position = null; // Vector3D
-        _normal = null; // Vector3D
-        _distance = null; // Number
-        constructor() {
-            this._position = new Vector3D();
-            this._normal = new Vector3D(0, 1, 0);
-            this._distance = 0;
-
-        }
+        private _position = new Vector3D();
+        private _normal = new Vector3D(0, 1, 0);
+        private _distance = 0;
+        constructor() { }
 
         get_position() {
 
@@ -58,7 +53,7 @@ module jiglib {
 
         }
 
-        setWithPoint(pos0, pos1, pos2) {
+        setWithPoint(pos0: Vector3D, pos1: Vector3D, pos2: Vector3D) {
 
             this._position = pos0.clone();
 

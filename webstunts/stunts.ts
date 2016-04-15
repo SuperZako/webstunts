@@ -37,15 +37,16 @@ var car: jiglib.JCar;
 var camera;
 
 class Mesh {
-    vertexPosition: {
-        buffer: WebGLBuffer,
-        itemSize: number,
-        numItems: number,
+    vertexPosition = {
+        buffer: <WebGLBuffer>null,
+        itemSize: <number>null,
+        numItems: <number>null,
     };
 
     vertexNormal;
     vertexColour;
     vertexMaterialInfo;
+
 }
 
 function notify(msg: string, tag: string = 'p') {
@@ -87,7 +88,7 @@ function physicalModel(model) {
         }
     }
 
-    var skin: jiglib.ISkin3D;
+    var skin: jiglib.ISkin3D = { transform: null, vertices: null, indices: null };
     skin.vertices = vertices;
     skin.indices = indices;
 
@@ -243,11 +244,10 @@ function getShader(gl: WebGLRenderingContext, id: string) {
         k = k.nextSibling;
     }
 
-    var shader;
     if (shaderScript.type == "x-shader/x-fragment") {
-        shader = gl.createShader(gl.FRAGMENT_SHADER);
+        var shader = gl.createShader(gl.FRAGMENT_SHADER);
     } else if (shaderScript.type == "x-shader/x-vertex") {
-        shader = gl.createShader(gl.VERTEX_SHADER);
+        var shader = gl.createShader(gl.VERTEX_SHADER);
     } else {
         return null;
     }
@@ -285,14 +285,12 @@ function initShaders() {
     var attributes = ["vertexPosition", "vertexNormal", "vertexColour", "vertexMaterialInfo"];
     var uniforms = ["worldProjection", "normalProjection", "lightPosition"];
 
-    for (var i in attributes) {
-        var a = attributes[i];
+    for (let a of attributes) {
         shaderProgram[a] = gl.getAttribLocation(shaderProgram, a);
         gl.enableVertexAttribArray(shaderProgram[a]);
     }
 
-    for (i in uniforms) {
-        var u = uniforms[i];
+    for (let u of uniforms) {
         shaderProgram[u] = gl.getUniformLocation(shaderProgram, u);
     }
 }
@@ -556,7 +554,7 @@ function makeTrans(x, y, elevated, orientation) {
     return trans;
 }
 
-function buildTrack(codes) {
+function buildTrack(codes: number[]) {
     var trackData = [];
     var terrainData = [];
 

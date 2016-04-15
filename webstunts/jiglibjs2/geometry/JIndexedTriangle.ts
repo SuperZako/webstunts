@@ -8,20 +8,17 @@ module jiglib {
 
 
     export class JIndexedTriangle {
-        counter = null; // int
-        private _vertexIndices = null; // uint
-        private _plane = null; // PlaneData
-        private _boundingBox = null; // JAABox
+        counter = 0; // int
+        private _vertexIndices = [-1, -1, -1];
+        private _plane = new PlaneData();
+        private _boundingBox = new JAABox();
 
         constructor() {
-
-            this.counter = 0;
-            this._vertexIndices = [];
-            this._vertexIndices[0] = -1;
-            this._vertexIndices[1] = -1;
-            this._vertexIndices[2] = -1;
-            this._plane = new PlaneData();
-            this._boundingBox = new JAABox();
+            //this._vertexIndices[0] = -1;
+            //this._vertexIndices[1] = -1;
+            //this._vertexIndices[2] = -1;
+            //this._plane = new PlaneData();
+            //this._boundingBox = new JAABox();
 
         }
 

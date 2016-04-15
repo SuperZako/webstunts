@@ -56,7 +56,7 @@ namespace jiglib {
 
         addPoint(contactPoints, pt, combinationDistanceSq) {
 
-            for (var contactPoints_i = 0, contactPoints_l = contactPoints.length, contactPoint; (contactPoints_i < contactPoints_l) && (contactPoint = contactPoints[contactPoints_i]); contactPoints_i++) {
+            for (let contactPoint of contactPoints) {
                 if (contactPoint.subtract(pt).get_lengthSquared() < combinationDistanceSq) {
                     contactPoint = JNumber3D.getScaleVector(contactPoint.add(pt), 0.5);
                     return false;
@@ -102,7 +102,7 @@ namespace jiglib {
 
         }
 
-        doOverlapBoxTriangleTest(box, triangle, mesh, info, collArr) {
+        doOverlapBoxTriangleTest(box, triangle, mesh, info, collArr: CollisionInfo[]) {
 
 
             var triEdge0, triEdge1, triEdge2, triNormal, D, N, boxOldPos, boxNewPos, meshPos, delta;
@@ -239,7 +239,7 @@ namespace jiglib {
 
         }
 
-        collDetect(info, collArr) {
+        collDetect(info, collArr: CollOutData) {
 
             var tempBody;
             if (info.body0.get_type() == "TRIANGLEMESH") {
