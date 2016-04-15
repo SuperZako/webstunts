@@ -21,7 +21,7 @@ namespace jiglib {
         preProcessContactFn = null; // Function
         processCollisionFn = null; // Function
         processContactFn = null; // Function
-        private _cachedContacts = null; // ContactData
+        private _cachedContacts: ContactData[] = null; // ContactData
         private _collisionSystem: CollisionSystemAbstract = null; // CollisionSystemAbstract
 
         constructor() {
@@ -794,9 +794,9 @@ namespace jiglib {
                 let body1 = collInfo_objInfo.body1;
 
                 let collInfo_pointInfo = collInfo.pointInfo;
-                this._cachedContacts.fixed = false;
+                //this._cachedContacts.fixed = false;
                 this._cachedContacts.length += collInfo_pointInfo.length;
-                this._cachedContacts.fixed = true;
+                //this._cachedContacts.fixed = true;
 
                 for (let ptInfo of collInfo_pointInfo) {
                     let id1 = -1;
@@ -813,7 +813,7 @@ namespace jiglib {
 
         }
 
-        handleAllConstraints(dt, iter, forceInelastic) {
+        handleAllConstraints(dt: number, iter: number, forceInelastic: boolean) {
 
             var origNumCollisions = this._collisions.length;
             let iteration = JConfig.numConstraintIterations;
@@ -885,9 +885,10 @@ namespace jiglib {
 
         }
 
-        activateObject(body) {
+        activateObject(body: RigidBody) {
 
-            if (!body.get_movable() || body.isActive) return;
+            if (!body.get_movable() || body.isActive)
+                return;
 
             if (this._activeBodies.indexOf(body) < 0) {
                 body.setActive();
@@ -900,7 +901,7 @@ namespace jiglib {
 
         tryToActivateAllFrozenObjects() {
 
-            for (var _bodies_i = 0, _bodies_l = this._bodies.length, body; (_bodies_i < _bodies_l) && (body = this._bodies[_bodies_i]); _bodies_i++) {
+            for (let body of this._bodies) {
                 if (!body.isActive) {
                     if (body.getShouldBeActive()) {
                         this.activateObject(body);
@@ -915,8 +916,7 @@ namespace jiglib {
         }
 
         tryToFreezeAllObjects(dt) {
-
-            for (var _activeBodies_i = 0, _activeBodies_l = this._activeBodies.length, activeBody; (_activeBodies_i < _activeBodies_l) && (activeBody = this._activeBodies[_activeBodies_i]); _activeBodies_i++) {
+            for (let activeBody of this._activeBodies) {
                 activeBody.dampForDeactivation();
                 activeBody.tryToFreeze(dt);
             }
@@ -1033,11 +1033,11 @@ namespace jiglib {
 
         static getInstance() {
 
-            if (!PhysicsSystem._currentPhysicsSystem) {
+            if (!this._currentPhysicsSystem) {
                 //trace("version: JigLibFlash fp11 (2011-7-14)");
-                PhysicsSystem._currentPhysicsSystem = new PhysicsSystem();
+                this._currentPhysicsSystem = new PhysicsSystem();
             }
-            return PhysicsSystem._currentPhysicsSystem;
+            return this._currentPhysicsSystem;
 
         }
     }

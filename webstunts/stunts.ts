@@ -331,7 +331,7 @@ function mergeModels(parts) {
 }
 
 // Convert a Stunts mesh into buffers ready for rendering
-function initMesh(model) {
+function initMesh(model:IModel) {
     var vertices = model.vertices;
     var faceIndices = model.faceIndices;
     var faceMaterials = model.faceMaterials;

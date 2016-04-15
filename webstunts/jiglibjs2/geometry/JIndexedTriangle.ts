@@ -38,11 +38,9 @@ module jiglib {
         }
 
         updateVertexIndices(vertexArray) {
-
-            var i0, i1, i2;
-            i0 = this._vertexIndices[0];
-            i1 = this._vertexIndices[1];
-            i2 = this._vertexIndices[2];
+            let i0 = this._vertexIndices[0];
+            let i1 = this._vertexIndices[1];
+            let i2 = this._vertexIndices[2];
 
             this._plane.setWithPoint(vertexArray[i0], vertexArray[i1], vertexArray[i2]);
 

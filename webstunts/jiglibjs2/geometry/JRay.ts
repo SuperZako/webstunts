@@ -5,13 +5,11 @@ module jiglib {
 
     export class JRay {
 
-        constructor(public origin, public dir) {
+        constructor(public origin: Vector3D, public dir: Vector3D) {
         }
 
-        getOrigin(t) {
-
+        getOrigin(t: number) {
             return this.origin.add(JNumber3D.getScaleVector(this.dir, t));
-
         }
 
     }
