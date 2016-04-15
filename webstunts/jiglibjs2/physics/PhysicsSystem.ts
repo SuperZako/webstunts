@@ -345,7 +345,7 @@ namespace jiglib {
 
         }
 
-        preProcessCollisionAccumulated(collision, dt) {
+        preProcessCollisionAccumulated(collision: CollisionInfo, dt: number) {
 
             collision.satisfied = false;
 
@@ -438,7 +438,7 @@ namespace jiglib {
 
         }
 
-        processCollisionNormal(collision, dt) {
+        processCollisionNormal(collision: CollisionInfo, dt: number) {
 
             collision.satisfied = true;
 

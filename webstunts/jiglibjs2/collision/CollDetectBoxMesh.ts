@@ -102,7 +102,7 @@ namespace jiglib {
 
         }
 
-        doOverlapBoxTriangleTest(box: JBox, triangle: JIndexedTriangle, mesh, info, collArr: CollisionInfo[]) {
+        doOverlapBoxTriangleTest(box: JBox, triangle: JIndexedTriangle, mesh: JTriangleMesh, info: CollDetectInfo, collArr: CollisionInfo[]) {
 
 
             var D, N, boxOldPos, boxNewPos, meshPos, delta;
@@ -211,7 +211,7 @@ namespace jiglib {
 
         }
 
-        collDetectBoxStaticMeshOverlap(box, mesh, info, collArr) {
+        collDetectBoxStaticMeshOverlap(box, mesh, info: CollDetectInfo, collArr: CollisionInfo[]) {
 
             var boxRadius = box.get_boundingSphere();
             var boxCentre = box.get_currentState().position;
@@ -239,7 +239,7 @@ namespace jiglib {
 
         }
 
-        collDetect(info, collArr: CollOutData) {
+        collDetect(info: CollDetectInfo, collArr: CollisionInfo[]) {
 
             var tempBody;
             if (info.body0.get_type() == "TRIANGLEMESH") {

@@ -6,6 +6,6 @@ module jiglib {
 
         constructor(public name: string, public type0: string, public type1: string) {
         }
-        abstract collDetect(info: CollDetectInfo, collArr: CollOutData);
+        abstract collDetect(info: CollDetectInfo, collArr: CollisionInfo[]);
     }
 }

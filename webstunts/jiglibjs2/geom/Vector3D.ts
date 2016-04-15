@@ -1,9 +1,5 @@
-﻿
-
-module jiglib {
-
+﻿namespace jiglib {
     export class Vector3D {
-
         //constructor(public x= null, public y= null, public z= null, public w= null) { }
         constructor(public x = 0, public y = 0, public z = 0, public w = 0) { }
         //add(a:Vector3D):Vector3D
@@ -11,14 +7,12 @@ module jiglib {
         add(a) {
             return new Vector3D(this.x + a.x, this.y + a.y, this.z + a.z, this.w /* + a.w */);
         }
-
         setTo(xa, ya, za) {
             this.x = xa;
             this.y = ya;
             this.z = za;
             return this;
         }
-
         //angleBetween(a:Vector3D, b:Vector3D):Number
         //[static] Returns the angle in radians between two vectors.
         static angleBetween(a, b) {
