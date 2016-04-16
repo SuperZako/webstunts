@@ -536,6 +536,12 @@ function updateScene() {
         for (i = 0; i < n; i++) {
             jl.integrate(ms);
         }
+
+
+
+
+
+
     }
 
     window.requestAnimationFrame(updateScene)

@@ -459,7 +459,7 @@ module jiglib {
 
         //}
 
-        updatePositionWithAux(dt) {
+        updatePositionWithAux(dt: number) {
 
             if (!this._movable || !this.isActive) {
                 this._currLinVelocityAux.setTo(0, 0, 0);

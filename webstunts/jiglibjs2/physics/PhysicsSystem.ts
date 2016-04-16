@@ -40,13 +40,13 @@ namespace jiglib {
         }
 
         setCollisionSystem(collisionSystemGrid = false, sx, sy, sz, nx = 20, ny = 20, nz = 20, dx = 200, dy = 200, dz = 200) {
-            if (collisionSystemGrid == null) collisionSystemGrid = false;
-            if (nx == null) nx = 20;
-            if (ny == null) ny = 20;
-            if (nz == null) nz = 20;
-            if (dx == null) dx = 200;
-            if (dy == null) dy = 200;
-            if (dz == null) dz = 200;
+            //if (collisionSystemGrid == null) collisionSystemGrid = false;
+            //if (nx == null) nx = 20;
+            //if (ny == null) ny = 20;
+            //if (nz == null) nz = 20;
+            //if (dx == null) dx = 200;
+            //if (dy == null) dy = 200;
+            //if (dz == null) dz = 200;
 
             // which collisionsystem to use grid / brute
             if (collisionSystemGrid) {

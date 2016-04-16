@@ -1,54 +1,45 @@
 ﻿
-(function(jiglib) {
+namespace jiglib {
 
-	var JConstraintWorldPoint = jiglib.JConstraintWorldPoint;
-	var JConstraintMaxDistance = jiglib.JConstraintMaxDistance;
-	var JConstraintPoint = jiglib.JConstraintPoint;
+    //var JConstraintWorldPoint = jiglib.JConstraintWorldPoint;
+    //var JConstraintMaxDistance = jiglib.JConstraintMaxDistance;
+    //var JConstraintPoint = jiglib.JConstraintPoint;
 
-	var JConstraint = function()
-	{
-		this.satisfied = null; // Boolean
-		this._constraintEnabled = null; // Boolean
+    export class JConstraint {
+        satisfied = null; // Boolean
+        _constraintEnabled = null; // Boolean
+        constructor() {
+            //this.satisfied = null; // Boolean
+            //this._constraintEnabled = null; // Boolean
+        }
 
-		
-	}
+        preApply(dt) {
 
-	JConstraint.prototype.preApply = function(dt)
-	{
+            this.satisfied = false;
 
-		this.satisfied = false;
-		
-	}
+        }
 
-	JConstraint.prototype.apply = function(dt)
-	{
+        apply(dt) {
 
-		return false;
-		
-	}
+            return false;
 
-	JConstraint.prototype.enableConstraint = function()
-	{
+        }
 
-		
-	}
-
-	JConstraint.prototype.disableConstraint = function()
-	{
-
-		
-	}
-
-	JConstraint.prototype.get_constraintEnabled = function()
-	{
-
-		return this._constraintEnabled;
-		
-	}
+        enableConstraint() {
 
 
+        }
 
-	jiglib.JConstraint = JConstraint; 
+        disableConstraint() {
 
-})(jiglib);
 
+        }
+
+        get_constraintEnabled() {
+
+            return this._constraintEnabled;
+
+        }
+
+    }
+}
