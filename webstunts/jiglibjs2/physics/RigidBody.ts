@@ -336,8 +336,8 @@ module jiglib {
 
         }
 
-        addBodyForce(f, p, active) {
-            if (active == null) active = true;
+        addBodyForce(f, p, active = true) {
+            //if (active == null) active = true;
 
             if (!this._movable)
                 return;
@@ -355,8 +355,8 @@ module jiglib {
 
         }
 
-        applyWorldImpulse(impulse, pos, active) {
-            if (active == null) active = true;
+        applyWorldImpulse(impulse, pos, active = true) {
+            //if (active == null) active = true;
 
             if (!this._movable) {
                 return;
@@ -371,8 +371,8 @@ module jiglib {
 
         }
 
-        applyWorldImpulseAux(impulse, pos, active) {
-            if (active == null) active = true;
+        applyWorldImpulseAux(impulse, pos, active = true) {
+            //if (active == null) active = true;
 
             if (!this._movable) {
                 return;
@@ -387,8 +387,8 @@ module jiglib {
 
         }
 
-        applyBodyWorldImpulse(impulse, delta, active) {
-            if (active == null) active = true;
+        applyBodyWorldImpulse(impulse, delta, active = true) {
+            //if (active == null) active = true;
 
             if (!this._movable) {
                 return;
@@ -399,7 +399,8 @@ module jiglib {
             rotImpulse = this._worldInvInertia.transformVector(rotImpulse);
             this._currState.rotVelocity = this._currState.rotVelocity.add(rotImpulse);
 
-            if (active) this.setActive();
+            if (active)
+                this.setActive();
 
         }
 
@@ -722,7 +723,7 @@ module jiglib {
 
         }
 
-        segmentIntersect(out: CollOutBodyData, seg:JSegment, state) {
+        segmentIntersect(out: CollOutBodyData, seg: JSegment, state) {
 
             return false;
 
