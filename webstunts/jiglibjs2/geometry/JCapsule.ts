@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="../jiglib.ts"/>
+
 (function(jiglib) {
 
 	var JIndexedTriangle = jiglib.JIndexedTriangle;
