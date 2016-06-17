@@ -25,7 +25,7 @@ namespace jiglib {
         _terrain = null; // ITerrain
         _yUp = null; // Boolean
         constructor(tr, yUp) {
-            super([null]);
+            super(null);
 
             //jiglib.RigidBody.apply(this, [ null ]);
 

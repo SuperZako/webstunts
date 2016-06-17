@@ -107,7 +107,7 @@ namespace jiglib {
 
         }
 
-        addSphere(sphere) {
+        addSphere(sphere: JSphere) {
 
             //if (sphere.get_currentState().position.x - sphere.get_radius() < _minPos.x) {
             this.minPos.x = (sphere.get_currentState().position.x - sphere.get_radius()) - 1;

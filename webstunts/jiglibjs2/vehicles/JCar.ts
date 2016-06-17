@@ -31,14 +31,14 @@ module jiglib {
         wheelMesh;
 
 
-        _maxSteerAngle = null; // Number
-        _steerRate = null; // Number
-        _driveTorque = null; // Number
-        _destSteering = null; // Number
-        _destAccelerate = null; // Number
-        _steering = null; // Number
-        _accelerate = null; // Number
-        _HBrake = null; // Number
+        _maxSteerAngle: number = null; // Number
+        _steerRate: number = null; // Number
+        _driveTorque: number = null; // Number
+        _destSteering: number = null; // Number
+        _destAccelerate: number = null; // Number
+        _steering: number = null; // Number
+        _accelerate: number = null; // Number
+        _HBrake: number = null; // Number
         _chassis: JChassis = null; // JChassis
         _wheels: JWheel[] = null; // Array
         _steerWheels = null; // Array

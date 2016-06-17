@@ -21,7 +21,7 @@ module jiglib {
         slipVel = 0.4; // Number
         slipFactor = 0.7; // Number
         smallVel = 3; // Number
-        _car = null; // JCar
+        _car: JCar = null; // JCar
         _pos = null; // Vector3D
         _axisUp = null; // Vector3D
         _spring = null; // Number

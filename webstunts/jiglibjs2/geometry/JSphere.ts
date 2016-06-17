@@ -1,31 +1,12 @@
 ﻿
 namespace jiglib {
 
-    //var JIndexedTriangle = jiglib.JIndexedTriangle;
-    //var JOctree = jiglib.JOctree;
-    //var JCapsule = jiglib.JCapsule;
-    //var JBox = jiglib.JBox;
-    //var JRay = jiglib.JRay;
-    //var JAABox = jiglib.JAABox;
-    //var JTerrain = jiglib.JTerrain;
-    //var JPlane = jiglib.JPlane;
-    //var JTriangleMesh = jiglib.JTriangleMesh;
-    //var JTriangle = jiglib.JTriangle;
-    //var JSegment = jiglib.JSegment;
-    //var RigidBody = jiglib.RigidBody;
-    //var Matrix3D = jiglib.Matrix3D;
-    //var Vector3D = jiglib.Vector3D;
-    //var CollOutData = jiglib.CollOutData;
-    //var JMatrix3D = jiglib.JMatrix3D;
-    //var JMath3D = jiglib.JMath3D;
-    //var JNumber3D = jiglib.JNumber3D;
-    //var PhysicsState = jiglib.PhysicsState;
     export class JSphere extends RigidBody {
         name = null; // String
         _radius = null; // Number
 
-        constructor(skin, r) {
-            super([skin]);
+        constructor(skin: ISkin3D, r) {
+            super(skin);
 
 
 

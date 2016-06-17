@@ -78,7 +78,7 @@ module jiglib {
         collisionSystem = null; // CollisionSystemAbstract
         isActive = null; // Boolean
 
-        constructor(skin) {
+        constructor(skin: ISkin3D) {
             this._useDegrees = (JConfig.rotationType == "DEGREES") ? true : false;
 
             this._id = RigidBody.idCounter++;
