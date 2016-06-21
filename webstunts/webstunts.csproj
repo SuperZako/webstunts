@@ -70,7 +70,6 @@
     <TypeScriptCompile Include="jiglibjs2\geom\Matrix3D.ts" />
     <TypeScriptCompile Include="jiglibjs2\geom\Vector3D.ts" />
     <TypeScriptCompile Include="jiglibjs2\jiglib.ts" />
-    <Content Include="jiglibjs2\license.txt" />
     <TypeScriptCompile Include="jiglibjs2\math\JMath3D.ts" />
     <TypeScriptCompile Include="jiglibjs2\math\JMatrix3D.ts" />
     <TypeScriptCompile Include="jiglibjs2\math\JNumber3D.ts" />
@@ -94,7 +93,6 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="jiglibjs2\README" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
